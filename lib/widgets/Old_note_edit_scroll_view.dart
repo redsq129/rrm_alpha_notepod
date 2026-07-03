@@ -36,9 +36,6 @@ class NoteEditScrollView extends StatefulWidget {
     this.isExternal = false,
     this.isExisting = false,
     this.noteTitle,
-    this.showContentEditor = true,
-    this.showSaveButton = true,
-    this.onFormChanged,
   })  : _textController = textController,
         _scaffoldController = scaffoldController,
         _focusTitle = focusTitle,
@@ -55,26 +52,6 @@ class NoteEditScrollView extends StatefulWidget {
   final bool isExternal;
   final bool isExisting;
   final String? noteTitle;
-
-  /// Whether the markdown content editor is shown on screen. When
-  /// `false`, the content field (and its Preview/Edit toggle usage) is
-  /// suppressed entirely from the layout - only the title field and the
-  /// bottom action bar remain visible. Content can still be set
-  /// programmatically via `textController`; it just isn't rendered or
-  /// editable on screen.
-  final bool showContentEditor;
-
-  /// Whether the Save button is shown in the bottom action bar. Set this
-  /// to `false` when the caller wants to render its own Save button
-  /// elsewhere (e.g. positioned next to another control) instead of in
-  /// the default bottom bar position.
-  final bool showSaveButton;
-
-  /// Called whenever the title/content form changes, so a caller that is
-  /// rendering its own Save button outside this widget (see
-  /// `showSaveButton`) can rebuild and re-evaluate whether that button
-  /// should be enabled.
-  final VoidCallback? onFormChanged;
 
   @override
   State<NoteEditScrollView> createState() => _NoteEditScrollViewState();
@@ -142,7 +119,6 @@ class _NoteEditScrollViewState extends State<NoteEditScrollView> {
               widget.formKey.currentState?.save();
               // Re-evaluate _hasChanges when the title field changes.
               setState(() {});
-              widget.onFormChanged?.call();
             },
             autovalidateMode: AutovalidateMode.disabled,
             skipDisabled: true,
@@ -177,37 +153,33 @@ class _NoteEditScrollViewState extends State<NoteEditScrollView> {
                       ),
                     ),
                     // Preview/Edit toggle — fixed next to title, never moves.
-                    if (widget.showContentEditor)
-                      TextButton.icon(
-                        onPressed: () => setState(() => _preview = !_preview),
-                        icon: Icon(
-                          _preview
-                              ? Icons.edit_outlined
-                              : Icons.preview_outlined,
-                          size: 16,
-                        ),
-                        label: Text(_preview ? 'Edit' : 'Preview'),
-                        style: TextButton.styleFrom(
-                          visualDensity: VisualDensity.compact,
-                        ),
+                    TextButton.icon(
+                      onPressed: () => setState(() => _preview = !_preview),
+                      icon: Icon(
+                        _preview ? Icons.edit_outlined : Icons.preview_outlined,
+                        size: 16,
                       ),
+                      label: Text(_preview ? 'Edit' : 'Preview'),
+                      style: TextButton.styleFrom(
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
         ),
-        // ── Content fills all remaining space (when shown) ─────────────────
-        if (widget.showContentEditor)
-          Expanded(
-            child: markdownEditor(
-              context,
-              widget._textController!,
-              widget._focusContent,
-              widget.data,
-              preview: _preview,
-            ),
+        // ── Content fills all remaining space ──────────────────────────────
+        Expanded(
+          child: markdownEditor(
+            context,
+            widget._textController!,
+            widget._focusContent,
+            widget.data,
+            preview: _preview,
           ),
+        ),
         // ── Fixed bottom action bar ───────────────────────────────────────
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -217,25 +189,23 @@ class _NoteEditScrollViewState extends State<NoteEditScrollView> {
             children: [
               ...(!widget.isExisting)
                   ? [
-                      if (widget.showSaveButton)
-                        NoteSaveButton(
-                          textController: widget._textController!,
-                          formKey: widget.formKey,
-                          scaffoldController: widget._scaffoldController,
-                          enabled: _hasChanges,
-                        ),
+                      NoteSaveButton(
+                        textController: widget._textController!,
+                        formKey: widget.formKey,
+                        scaffoldController: widget._scaffoldController,
+                        enabled: _hasChanges,
+                      ),
                     ]
                   : [
-                      if (widget.showSaveButton)
-                        NoteSaveButton(
-                          textController: widget._textController!,
-                          formKey: widget.formKey,
-                          scaffoldController: widget._scaffoldController,
-                          prevNote: widget.prevNote,
-                          isExisting: true,
-                          isExternal: widget.isExternal,
-                          enabled: _hasChanges,
-                        ),
+                      NoteSaveButton(
+                        textController: widget._textController!,
+                        formKey: widget.formKey,
+                        scaffoldController: widget._scaffoldController,
+                        prevNote: widget.prevNote,
+                        isExisting: true,
+                        isExternal: widget.isExternal,
+                        enabled: _hasChanges,
+                      ),
                       NoteBackButton(
                         childPage: widget.childPage,
                         textController: widget._textController,
