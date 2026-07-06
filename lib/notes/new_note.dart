@@ -226,16 +226,54 @@ class NewNoteState extends State<NewNote> {
   }
 
   /// Parses a comma-separated string of dependant dates of birth into a
-  /// list of trimmed, non-empty date strings, matching the array shape
-  /// expected by "y" for `customer.dob_of_dependants`.
+ 
+  String? _parseDependantDobs(String? value) {
+    final formState = _appFormKey.currentState;
+    final dependantsRaw = formState?.fields['dependants']?.value;
+    final dependants = int.tryParse('${dependantsRaw ?? ''}') ?? 0;
 
-  List<String> _parseDependantDobs(String? raw) {
-    if (raw == null || raw.trim().isEmpty) return [];
-    return raw
-        .split(',')
-        .map((s) => s.trim())
-        .where((s) => s.isNotEmpty)
-        .toList();
+    final dobList = value?.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList() ?? [];
+
+    // Test length of the
+    // list of dates against the number of dependants. If there are more dependants than dates, return an error message. If there are no dates but dependants > 0, return an error message. Otherwise, return the cleaned-up list of dates as a comma-separated string.
+
+    if (value == null || value.trim().isEmpty) {
+      if (dependants > 0) {
+        return 'The DoB (Date of Birth) as yyyy-MM-dd is required for each dependent';
+      }
+      return null;
+    }
+
+    if (dobList.length != dependants) {
+      return 'Number of Dates of Birth (${dobList.length}) does not match number of dependants ($dependants)';
+    }
+
+    for (String date in dobList) {
+      try {
+        isoDateOnlyFormat.parseStrict(date);
+      } catch (e) {
+        return 'Please enter $date in the valid date format yyyy-MM-dd.';
+      }
+    }
+    value = dobList.join(', '); // Clean up the value to have consistent formatting
+
+    return null;
+  }
+
+  /// Returns the cleaned-up (trimmed, consistently comma-space-joined)
+  /// dependant DoB string for `customer.dob_of_dependants`, or `null` if
+  /// none were entered. This is distinct from [_parseDependantDobs],
+  /// which is a validator and returns `null` to mean "valid" rather than
+  /// "empty" - it must not be used to derive the saved value.
+  String? _cleanDependantDobs(String? value) {
+    final dobList = value
+            ?.split(',')
+            .map((s) => s.trim())
+            .where((s) => s.isNotEmpty)
+            .toList() ??
+        [];
+    if (dobList.isEmpty) return null;
+    return dobList.join(', ');
   }
 
   String? _requiredValidator(String? value) {
@@ -244,16 +282,6 @@ class NewNoteState extends State<NewNote> {
     }
     return null;
   }
-
-  /// Dependants validator if number of dependants > 0, then dob_of_dependants must be provided and must be a comma-separated list of valid dates.
-
-  /// final _dependantsValidator = FormBuilderValidators.compose<String>([
-  /// FormBuilderValidators.required(),
-  ///FormBuilderValidators.pattern(RegExp(r'^\d{4}-\d{2}-\d{2}(,\s*\d{4}-\d{2}-\d{2})*$')),
-  ///]);
-
-  /// Required + valid email address, per "y"'s `format: "email"` fields
-  /// (`user.email`, `customer.email`).
 
   final _emailValidator = FormBuilderValidators.compose<String>([
     FormBuilderValidators.required(),
@@ -285,7 +313,7 @@ class NewNoteState extends State<NewNote> {
     final required = _requiredValidator(value);
     if (required != null) return required;
     if (!_bankIdPattern.hasMatch(value!)) {
-      return 'Bank ID must be in the form nn-nn-nn, e.g. 12-34-56';
+      return 'Bank Identification code must be in the form nn-nn-nn (BSB), e.g. 12-34-56';
     }
     return null;
   }
@@ -511,7 +539,7 @@ class NewNoteState extends State<NewNote> {
                         helperText:
                             'Comma-separated dates, e.g. 2015-04-01, 2018-09-12',
                       ),
-                      ///validator: _parseDependantDobs,
+                      validator: _parseDependantDobs,
                     ),
 
                     const SizedBox(height: 12),
@@ -565,7 +593,7 @@ class NewNoteState extends State<NewNote> {
                       validator: _requiredValidator,
                     ),
                     FormBuilderSwitch(
-                      name: 'kyc_Status',
+                      name: 'kyc_status',
                       title: const Text('KYC Status (passed)'),
                       initialValue: false,
                     ),
@@ -664,8 +692,7 @@ class NewNoteState extends State<NewNote> {
         'date_of_birth': _dateOnlyIso(v['date_of_birth']),
         'relationship_status': v['relationship_status'],
         'dependants': int.tryParse('${v['dependants']}') ?? 0,
-        'dob_of_dependants':
-            _parseDependantDobs(v['dob_of_dependants'] as String?),
+        'dob_of_dependants': _cleanDependantDobs(v['dob_of_dependants']),
         'credit_rating': {
           'rating': v['credit_rating_rating'],
           'source': v['credit_rating_source'],
