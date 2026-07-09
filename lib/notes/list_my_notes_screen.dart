@@ -31,7 +31,7 @@ import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/models/notes_call_result.dart';
 import 'package:rrm_alpha/models/selected_note.dart';
 import 'package:rrm_alpha/notes/list_notes.dart';
-import 'package:rrm_alpha/notes/new_note.dart';
+import 'package:rrm_alpha/notes/new_edit_note.dart';
 import 'package:rrm_alpha/services/note_service.dart';
 import 'package:rrm_alpha/widgets/err_card.dart';
 import 'package:rrm_alpha/widgets/msg_card.dart';

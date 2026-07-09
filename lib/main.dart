@@ -76,7 +76,7 @@ void main() async {
 
       // alwaysOnTop: true,
 
-      title: 'rrm alpha rrm_alpha - PI Data form to be saved and shared as a *.json record ',
+      title: 'rrm alpha - rrm Tenant Information to be saved and shared as a *.json record ',
     );
 
     // Once the window manager is ready we reconfigure it a little.

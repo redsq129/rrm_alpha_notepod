@@ -16,7 +16,7 @@ rrm_alpha - a privacy respecting app for note taking, based on the Solid specifi
 
 *A description of your app detailing features and functionality.*
 
-rrm_alpha - Private and Shareable Notes
+rrm_alpha - Tenant Information Details for the Residential Rental Market
 
 rrm_alpha is an app built with the Solid (Social Linked Data) specification where you can store your notes data in your own personal data vault. Using rrm_alpha you can read, write, and share encrypted notes stored on your personal data vault (also called a Personal Online Datastore or Pod) hosted on a Solid Server.
 
@@ -33,18 +33,18 @@ Advantages of Solid based apps:
 
 Features of rrm_alpha:
 
-- Create new notes.
-- Edit an existing note.
-- Share notes to anyone.
+- Create new records.
+- Edit an existing record.
+- Share records to anyone.
 - You control who can access each note and the type of access given.
-- You can revoke another user's access to your note at any time or change the access you have given them.
-- Notes use standard non-proprietary Markdown formatting, with a interactive WYSIWYG formatting interface to assist new users.
+- You can revoke another user's access to your records at any time or change the access you have given them.
+- Records are entered in standard non-proprietary Markdown formatting, with a interactive WYSIWYG formatting interface to assist new users.
 
 ## Keywords
 
 *Comma separated keywords that improve App Store search function.*
 
-notes, Solid, personal online datastore, Pod, data vault, data sovereignty
+Tenant Information, residential retail market, records, Solid, personal online datastore, Pod, data vault, data sovereignty
 
 ## Support URL
 

@@ -33,7 +33,7 @@ import 'package:rrm_alpha/constants/app.dart';
 import 'package:rrm_alpha/notes/import_export_screen.dart';
 import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
 import 'package:rrm_alpha/notes/list_notes_screen.dart';
-import 'package:rrm_alpha/notes/new_note.dart';
+import 'package:rrm_alpha/notes/new_edit_note.dart';
 
 class AppHomePage extends StatefulWidget {
   /// Initialise widget variables.

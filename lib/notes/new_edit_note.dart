@@ -35,14 +35,20 @@ import 'package:intl/intl.dart';
 import 'package:solidui/solidui.dart';
 
 import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
+import 'package:rrm_alpha/notes/view_note.dart';
 import 'package:rrm_alpha/widgets/note_edit_scroll_view.dart';
 import 'package:rrm_alpha/widgets/note_save_button.dart';
 
-/// A [Stateful] widget for creating a new note.
+/// A [Stateful] widget for creating a new note, or editing an existing one.
 ///
 /// Parameters:
 ///   [scaffoldController] - Controller for the Solid scaffold.
+///   [existingNote] - Optional note being edited. When supplied, the
+/// Account Application form is pre-filled from the note's existing
+/// content and completing the form updates that note instead of
+/// creating a new one.
 ///
 /// This widget now also drives a structured data-entry form for capturing
 /// an Account Application record as described by the Proto PI JSON schema
@@ -52,7 +58,10 @@ import 'package:rrm_alpha/widgets/note_save_button.dart';
 /// JSON record that conforms to the shape of "y" - this completed record
 /// is referred to as "z". "z" then replaces whatever text/content the
 /// user had been editing in the note, so the note's content becomes the
-/// completed application JSON record.
+/// completed application JSON record. When editing an existing note, the
+/// form fields are first populated by parsing that note's current
+/// content back into "y" values, so the applicant's previous answers can
+/// be reviewed and amended rather than re-entered from scratch.
 
 /// Allowed values for `customer.relationship_status`, taken directly from
 /// the "y" schema's enum for that field.
@@ -83,11 +92,17 @@ class NewNote extends StatefulWidget {
 
   /// Optional title to pre-fill when creating a note from the search bar.
   final String? initialTitle;
-  
+
+  /// Optional existing note to edit. When supplied, the Account
+  /// Application form is pre-filled from this note's current content and
+  /// completing the form updates this note instead of creating a new one.
+  final Note? existingNote;
+
   const NewNote({
     super.key,
     required this.scaffoldController,
-    this.initialTitle, 
+    this.initialTitle,
+    this.existingNote,
   });
 
   @override
@@ -134,16 +149,36 @@ class NewNoteState extends State<NewNote> {
   /// when writing `_generatedContent` into the controller.
   bool _applyingGeneratedContent = false;
 
+  /// When editing an existing note, the "y" field values recovered by
+  /// parsing that note's current "z" content, keyed by the same field
+  /// `name`s used in the Account Application form below. Used to
+  /// pre-fill the form via each field's `initialValue` so the applicant's
+  /// previous answers appear ready to review/amend. `null` when creating
+  /// a brand new note, or if the existing content couldn't be parsed.
+  Map<String, dynamic>? _initialFormValues;
+
   @override
   void initState() {
     super.initState();
-    // The note content starts empty. It can only be populated by
-    // completing the Account Application form below, which writes the
-    // completed "z" JSON record into the controller. Direct user typing
-    // into the content field is blocked (see _onContentChanged).
     _textController = TextEditingController();
     _scrollController = ScrollController();
     _scaffoldController = widget.scaffoldController;
+
+    final existingContent = widget.existingNote?.content?.noteContent;
+    if (existingContent != null && existingContent.trim().isNotEmpty) {
+      // Editing an existing note: seed the content with what's already
+      // there (it can still only change by completing the form again,
+      // see _onContentChanged), and recover the form field values that
+      // produced it so the form opens pre-filled.
+      _generatedContent = existingContent;
+      _textController!.text = existingContent;
+      data = existingContent;
+      _initialFormValues = _parseExistingContent(existingContent);
+    }
+    // Otherwise the note content starts empty. It can only be populated by
+    // completing the Account Application form below, which writes the
+    // completed "z" JSON record into the controller. Direct user typing
+    // into the content field is blocked (see _onContentChanged).
 
     // Start listening to changes so any edit that didn't come from
     // _setGeneratedContent gets reverted, and so `data` stays in sync.
@@ -199,6 +234,20 @@ class NewNoteState extends State<NewNote> {
     setState(() {
       data = json;
     });
+  }
+
+String? _optionalCleanup(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return  ''; // Optional field, so return empty string if null or whitespace
+    }
+    return value.trim();
+  }
+
+String? _optionalValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return null; // Optional field, so no error if empty
+    }
+    return null;
   }
 String? _requiredValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -343,17 +392,24 @@ String? _requiredValidator(String? value) {
     return null;
   }
 
-    /// Whether the note has unsaved changes worth enabling Save for. Since
-  /// [NewNote] always creates a brand new note, this mirrors the
-  /// "not existing" branch of `NoteEditScrollView`'s own `_hasChanges`:
-  /// enabled once a title or some content has been entered.
+    /// Whether the note has unsaved changes worth enabling Save for. This
+  /// mirrors `NoteEditScrollView`'s own `_hasChanges`: for a brand new
+  /// note, enabled once a title or some content has been entered; for an
+  /// existing note being edited, enabled once the title or content
+  /// differs from that note's original values.
 
   bool get _hasChanges {
     final title =
         (formKey.currentState?.fields[noteTitlePred]?.value as String?) ??
             widget.initialTitle ??
+            widget.existingNote?.content?.noteTitle ??
             '';
-    return title.trim().isNotEmpty || data.trim().isNotEmpty;
+    if (widget.existingNote == null) {
+      return title.trim().isNotEmpty || data.trim().isNotEmpty;
+    }
+    final initTitle = widget.existingNote?.content?.noteTitle ?? '';
+    final initContent = widget.existingNote?.content?.noteContent ?? '';
+    return title != initTitle || data != initContent;
   }
 
   /// Opens the structured data-entry form for the Account Application
@@ -388,6 +444,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'account_application_id',
+                      initialValue:
+                          _initialFormValues?['account_application_id']
+                              as String?,
                       decoration: const InputDecoration(
                         labelText: 'Account Application ID (UUID)',
                       ),
@@ -396,6 +455,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'product_code',
+                      initialValue:
+                          _initialFormValues?['product_code'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Product Code'),
                       validator: _requiredValidator,
@@ -408,6 +469,7 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'user_id',
+                      initialValue: _initialFormValues?['user_id'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'User ID (UUID)'),
                       validator: _requiredValidator,
@@ -415,6 +477,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'user_email',
+                      initialValue:
+                          _initialFormValues?['user_email'] as String?,
                       decoration: const InputDecoration(labelText: 'User Email'),
                       keyboardType: TextInputType.emailAddress,
                       validator: _emailValidator,
@@ -422,6 +486,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'provider_id',
+                      initialValue:
+                          _initialFormValues?['provider_id'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Provider ID'),
                       validator: _requiredValidator,
@@ -429,6 +495,7 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'provider',
+                      initialValue: _initialFormValues?['provider'] as String?,
                       decoration: const InputDecoration(
                           labelText: 'Provider (URL)',),
                       keyboardType: TextInputType.url,
@@ -437,6 +504,7 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'username',
+                      initialValue: _initialFormValues?['username'] as String?,
                       decoration: const InputDecoration(labelText: 'Username'),
                       validator: _requiredValidator,
                     ),
@@ -449,6 +517,7 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'bank_id',
+                      initialValue: _initialFormValues?['bank_id'] as String?,
                       decoration: const InputDecoration(
                         labelText: 'Bank ID',
                         hintText: 'A valid bank identifier is of the form nn-nn-nn e.g. bank sort code or bank state branch in Australia',
@@ -458,6 +527,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'customer_id',
+                      initialValue:
+                          _initialFormValues?['customer_id'] as String?,
                       decoration: const InputDecoration(
                           labelText: 'Customer ID (UUID)',),
                       validator: _requiredValidator,
@@ -465,6 +536,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'customer_number',
+                      initialValue:
+                          _initialFormValues?['customer_number'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Customer Number'),
                       validator: _requiredValidator,
@@ -472,6 +545,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'legal_name',
+                      initialValue:
+                          _initialFormValues?['legal_name'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Legal Name'),
                       validator: _requiredValidator,
@@ -479,6 +554,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'mobile_phone_number',
+                      initialValue:
+                          _initialFormValues?['mobile_phone_number']
+                              as String?,
                       decoration: const InputDecoration(
                           labelText: 'Mobile Phone Number',),
                       keyboardType: TextInputType.phone,
@@ -487,6 +565,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'customer_email',
+                      initialValue:
+                          _initialFormValues?['customer_email'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Customer Email'),
                       keyboardType: TextInputType.emailAddress,
@@ -499,6 +579,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'face_image_url',
+                      initialValue:
+                          _initialFormValues?['face_image_url'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Face Image URL'),
                       keyboardType: TextInputType.url,
@@ -507,6 +589,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderDateTimePicker(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'face_image_date',
+                      initialValue:
+                          _initialFormValues?['face_image_date'] as DateTime?,
                       inputType: InputType.date,
                       format: auDateFormat,
                       decoration:
@@ -518,6 +602,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderDateTimePicker(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'date_of_birth',
+                      initialValue:
+                          _initialFormValues?['date_of_birth'] as DateTime?,
                       inputType: InputType.date,
                       format: auDateFormat,
                       decoration:
@@ -527,6 +613,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderDropdown<String>(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'relationship_status',
+                      initialValue:
+                          _initialFormValues?['relationship_status']
+                              as String?,
                       decoration: const InputDecoration(
                           labelText: 'Relationship Status',),
                       items: relationshipStatusOptions
@@ -538,6 +627,8 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'dependants',
+                      initialValue:
+                          _initialFormValues?['dependants'] as String?,
                       decoration:
                           const InputDecoration(labelText: 'Number of Dependants'),
                       keyboardType: TextInputType.number,
@@ -546,6 +637,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'dob_of_dependants',
+                      initialValue:
+                          _initialFormValues?['dob_of_dependants']
+                              as String?,
                       decoration: const InputDecoration(
                         labelText: 'Dates of Birth of Dependants',
                         helperText:
@@ -560,12 +654,18 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'credit_rating_rating',
+                      initialValue:
+                          _initialFormValues?['credit_rating_rating']
+                              as String?,
                       decoration: const InputDecoration(labelText: 'Rating'),
                       validator: _requiredValidator,
                     ),
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'credit_rating_source',
+                      initialValue:
+                          _initialFormValues?['credit_rating_source']
+                              as String?,
                       decoration: const InputDecoration(labelText: 'Source'),
                       validator: _requiredValidator,
                     ),
@@ -576,6 +676,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderDropdown<String>(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'credit_limit_currency',
+                      initialValue:
+                          _initialFormValues?['credit_limit_currency']
+                              as String?,
                       decoration: const InputDecoration(
                         labelText: 'Currency for credit limit definition',
                       ),
@@ -588,6 +691,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'credit_limit_amount',
+                      initialValue:
+                          _initialFormValues?['credit_limit_amount']
+                              as String?,
                       decoration: const InputDecoration(labelText: 'Amount'),
                       keyboardType: TextInputType.number,
                       validator: _requiredValidator,
@@ -597,6 +703,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'highest_education_attained',
+                      initialValue:
+                          _initialFormValues?['highest_education_attained']
+                              as String?,
                       decoration: const InputDecoration(
                           labelText: 'Highest Education Attained',),
                       validator: _requiredValidator,
@@ -604,6 +713,9 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'employment_status',
+                      initialValue:
+                          _initialFormValues?['employment_status']
+                              as String?,
                       decoration: const InputDecoration(
                           labelText: 'Employment Status',),
                       validator: _requiredValidator,
@@ -611,11 +723,14 @@ String? _requiredValidator(String? value) {
                     FormBuilderSwitch(
                       name: 'kyc_status',
                       title: const Text('KYC Status (passed)'),
-                      initialValue: false,
+                      initialValue:
+                          _initialFormValues?['kyc_status'] as bool? ?? false,
                     ),
                     FormBuilderDateTimePicker(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'last_ok_date',
+                      initialValue:
+                          _initialFormValues?['last_ok_date'] as DateTime?,
                       inputType: InputType.date,
                       format: auDateFormat,
                       decoration:
@@ -625,23 +740,26 @@ String? _requiredValidator(String? value) {
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'title',
+                      initialValue: _initialFormValues?['title'] as String?,
                       decoration: const InputDecoration(labelText: 'Title'),
                       validator: _requiredValidator,
                     ),
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'branch_id',
+                      initialValue:
+                          _initialFormValues?['branch_id'] as String?,
                       decoration:
-                          const InputDecoration(labelText: 'Branch ID'),
+                          const InputDecoration(labelText: 'Branch Identifier'),
                       validator: _requiredValidator,
                     ),
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      name: 'Name_suffix',
-                      decoration: const InputDecoration(
-                        labelText: 'Name Suffix',
-                        helperText: 'Optional',
-                      ),
+                      name: 'name_suffix',
+                      initialValue:
+                          _initialFormValues?['Name_suffix'] as String?,
+                      decoration: const InputDecoration(labelText: 'Name Suffix', helperText: 'Optional'),
+                      validator: _optionalValidator,
                     ),
 
                     const SizedBox(height: 24),
@@ -722,7 +840,7 @@ String? _requiredValidator(String? value) {
         'last_ok_date': _dateOnlyIso(v['last_ok_date']),
         'title': v['title'],
         'branch_id': v['branch_id'],
-        'name_suffix': v['name_suffix'],
+        'name_suffix': _optionalCleanup(v['name_suffix']),
       },
     };
 
@@ -738,8 +856,93 @@ String? _requiredValidator(String? value) {
     Navigator.of(context).pop();
   }
 
+  /// Reverses [_completeApplicationEntry]'s "y" → "z" assembly: given an
+  /// existing note's content (expected to be a "z" JSON record), recovers
+  /// a flat map of Account Application form field values keyed by the
+  /// same field `name`s used in [_showApplicationForm], so the form can
+  /// be re-opened with the applicant's previous answers already filled
+  /// in. Returns `null` if `content` isn't valid "z" JSON (e.g. a note
+  /// created before this form existed), in which case the form simply
+  /// opens blank as it would for a new note.
+
+  Map<String, dynamic>? _parseExistingContent(String content) {
+    try {
+      final z = jsonDecode(content) as Map<String, dynamic>;
+      final user = z['user'] as Map<String, dynamic>? ?? {};
+      final customer = z['customer'] as Map<String, dynamic>? ?? {};
+      final faceImage = customer['face_image'] as Map<String, dynamic>? ?? {};
+      final creditRating =
+          customer['credit_rating'] as Map<String, dynamic>? ?? {};
+      final creditLimit =
+          customer['credit_limit'] as Map<String, dynamic>? ?? {};
+
+      DateTime? parseDateOnly(dynamic value) {
+        if (value == null) return null;
+        try {
+          return isoDateOnlyFormat.parseStrict('$value');
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // credit_limit.currency is saved as a currency code (see
+      // _cleancurrencyCodeId); the dropdown is populated with currency
+      // names, so map the code back to its name.
+      String? currencyName(dynamic code) {
+        if (code == null) return null;
+        final index = currencyCodes.indexOf('$code');
+        return index == -1 ? null : currencyNames[index];
+      }
+
+      return <String, dynamic>{
+        'account_application_id': z['account_application_id'],
+        'product_code': z['product_code'],
+        'user_id': user['user_id'],
+        'user_email': user['email'],
+        'provider_id': user['provider_id'],
+        'provider': user['provider'],
+        'username': user['username'],
+        'bank_id': customer['bank_id'],
+        'customer_id': customer['customer_id'],
+        'customer_number': customer['customer_number'],
+        'legal_name': customer['legal_name'],
+        'mobile_phone_number': customer['mobile_phone_number'],
+        'customer_email': customer['email'],
+        'face_image_url': faceImage['url'],
+        'face_image_date': parseDateOnly(faceImage['date']),
+        'date_of_birth': parseDateOnly(customer['date_of_birth']),
+        'relationship_status': customer['relationship_status'],
+        'dependants': customer['dependants']?.toString(),
+        'dob_of_dependants': customer['dob_of_dependants'],
+        'credit_rating_rating': creditRating['rating'],
+        'credit_rating_source': creditRating['source'],
+        'credit_limit_currency': currencyName(creditLimit['currency']),
+        'credit_limit_amount': creditLimit['amount']?.toString(),
+        'highest_education_attained': customer['highest_education_attained'],
+        'employment_status': customer['employment_status'],
+        'kyc_status': customer['kyc_status'],
+        'last_ok_date': parseDateOnly(customer['last_ok_date']),
+        'title': customer['title'],
+        'branch_id': customer['branch_id'],
+        'Name_suffix': customer['name_suffix'],
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final existingNote = widget.existingNote;
+    final childPage = existingNote != null
+        ? ViewNote(
+            note: existingNote,
+            scaffoldController: _scaffoldController,
+          )
+        : ListMyNotesScreen(
+            scaffoldController: _scaffoldController,
+          );
+
     return Stack(
       children: [
         NoteEditScrollView(
@@ -748,10 +951,11 @@ String? _requiredValidator(String? value) {
           scaffoldController: _scaffoldController,
           focusTitle: _focusTitle,
           focusContent: _focusContent,
-          noteTitle: widget.initialTitle,
-          childPage: ListMyNotesScreen(
-            scaffoldController: _scaffoldController,
-          ),
+          noteTitle: widget.initialTitle ?? existingNote?.content?.noteTitle,
+          childPage: childPage,
+          prevNote: existingNote,
+          isExisting: existingNote != null,
+          isExternal: existingNote?.isExternalRes ?? false,
           data: data,
           showContentEditor: false,
           showSaveButton: false,
@@ -772,6 +976,9 @@ String? _requiredValidator(String? value) {
                 textController: _textController!,
                 formKey: formKey,
                 scaffoldController: _scaffoldController,
+                prevNote: existingNote,
+                isExisting: existingNote != null,
+                isExternal: existingNote?.isExternalRes ?? false,
                 enabled: _hasChanges,
               ),
             ],

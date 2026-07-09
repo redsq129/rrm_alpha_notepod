@@ -36,28 +36,28 @@ const String applicationRepo = 'https://github.com/anusii/rrm_alpha';
 const String appChangeLog =
     'https://github.com/anusii/rrm_alpha/blob/dev/CHANGELOG.md';
 const String defWebID = 'https://pods.solidcommunity.au';
-const String topBarTitle = 'Note Pod';
-const String shortTitle = 'Note Taker';
-const String longTitle = 'rrm_alpha\nPrivate and Shareable Notes';
+const String topBarTitle = 'rrm_alpha';
+const String shortTitle = 'rrm_alpha data wallet';
+const String longTitle = 'rrm_alpha\nTenant Information for use in the residential rental market';
 
 const String appOwner = '''© 2025 - 2026 Software Innovation Institute''';
 
 const String aboutText = '''
 
-          rrm_alpha is a private and shareable notes manager that stores your
-          notes encrypted in your personal Solid Pod, so your data stays
+          rrm_alpha is a private and shareable data manager that stores a record of tenant information
+          for use in the residential rental market. This information is encrypted in a personal Solid Pod, so your data stays
           under your control. Your Solid Pod can be hosted on any Solid
           server and being encrypted it is protected against casual access by
           anyone, including the server administrators.
 
           ### Key features
 
-          - Create, edit and delete private encrypted notes
-          - Share notes with other Solid Pod owners
-          - Browse all accessible notes or just your own
+          - Create, edit and delete private encrypted tenant information
+          - Share information with other Solid Pod owners
+          - Browse all accessible information or just your own
           - Full markdown rendering and editing
           - Selectable text for easy copying
-          - Backup and restore notes as JSON
+          - Backup and restore information as JSON
           - Security key management for encrypted data
           - Theme switching (light / dark / system)
 
@@ -83,7 +83,7 @@ double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 //double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
 const nonReadableNoteMsg =
-    'You do not have read access to this note and therefore cannot view that. However, you can delete it or share it with others.';
+    'You do not have read access to this Tenant Information and therefore cannot view that. However, you can delete it or share it with others.';
 
 //const noNotesMsg = 'You do not have any notes yet!';
 
@@ -112,63 +112,63 @@ const adviceStyle = TextStyle(
 );
 
 // Titles for nav widgets to pages
-const String newNoteTitle = 'New Note';
-const String newNoteToolTip = 'Create a new note';
-const String myNotesTitle = 'My Notes';
+const String newNoteTitle = 'New Tenant Information Record';
+const String newNoteToolTip = 'Create a new Tenant Information Record';
+const String myNotesTitle = 'My Tenant Information';
 const String myNotesExplanation = 'owned by me';
-const String myNotesToolTip = 'Go to notes owned by me';
-const String combinedNotesTitle = 'Notes';
+const String myNotesToolTip = 'Go to the Tenant Information owned by me';
+const String combinedNotesTitle = 'Tenant Information';
 const String combinedNotesExplanation = 'accessible to me';
-const String combinedNotesToolTip = 'Go to notes accessible to me';
+const String combinedNotesToolTip = 'Go to the Tenant Information accessible to me';
 
 const String importExportTitle = 'Backup';
 const String importExportToolTip = '**Backup**\n\n'
-    'Back up and restore all notes, view your notes as a PDF, '
+    'Back up and restore all Tenant Information, view your Information as a PDF, '
     'or import and export.';
 
 /// Note list messages
 class NoteListMsg {
   /// Message displayed when corrupt files found
-  static const String badFilesFound = 'Corrupt note files present';
+  static const String badFilesFound = 'Corrupt tenant information files present';
 
   /// Message displayed when inaccessible notes are found (deleted without
   /// revoking access, or encrypted with an earlier key pair)
   static const String inaccessibleNotesFound =
-      'Inaccessible notes present without \'revoke\' entry in log';
+      'Inaccessible tenant information present without \'revoke\' entry in log';
 
   /// Message displayed when no notes found in user's Pod
-  static const String noNotes = 'No notes yet!';
+  static const String noNotes = 'No Tenant Information Records yet!';
 
   /// Advises user to write their first note
-  static const String writeFirstNote = 'Write your first note';
+  static const String writeFirstNote = 'Write your first record of Tenant Information details';
 }
 
 /// Note action messages
 class Msg {
   /// Note saving message
-  static const String savingNote = 'Saving the note!';
+  static const String savingNote = 'Saving the Tenant Information Record!';
 
   /// Note deleting message
-  static const String deletingNote = 'Deleting the note!';
+  static const String deletingNote = 'Deleting the Tenant Information Record!';
 
   /// Confirm delete note message
   static const String confirmDelete =
-      'Are you sure you want to delete this note?';
+      'Are you sure you want to delete this Tenant Information Record?';
 
   /// Confirm delete multiple notes message
   static const String confirmDeleteMultiple =
-      'Are you sure you want to delete these notes?';
+      'Are you sure you want to delete these Tenant Information Records?';
 
   /// Note deleting message
   static const String revokingNote = 'Revoking access!';
 
   /// Confirm revoke access to note message
   static const String confirmRevoke =
-      'Are you sure you want to revoke access to this note?';
+      'Are you sure you want to revoke access to this Tenant Information Record?';
 
   /// Confirm revoke access to multiple notes message
   static const String confirmRevokeMultiple =
-      'Are you sure you want to revoke access to these notes?';
+      'Are you sure you want to revoke access to these Tenant Information Records?';
 
   /// Please confirm message
   static const String plsConfirm = 'Please Confirm';
@@ -180,18 +180,18 @@ class ErrMsg {
   static const String noChanges = 'You have no new changes!';
 
   /// No note content.
-  static const String noContent = 'Please enter some note content.';
+  static const String noContent = 'Please enter some Tenant Information details.';
 
   /// Invalid note name.
   static const String invalidName =
-      'Note name validation failed! Try using a different name.';
+      'Tenant Information name validation failed! Try using a different name.';
 
   /// Error message when fails to save note file to POD
   static const String saveFailed =
-      'Failed to store the note file in your POD. Try again!';
+      'Failed to store the Tenant Information record in your POD. Try again!';
 
   /// Unsaved changes found
-  static const String unsavedChanges = 'Unsaved changed found!';
+  static const String unsavedChanges = 'Unsaved changes found!';
 }
 
 class NoteIconSize {
@@ -221,14 +221,14 @@ const String appUrl = 'https://rrm_alpha.solidcommunity.au';
 const SolidInviteOthersConfig inviteOthersConfig = SolidInviteOthersConfig(
   applicationName: 'rrm_alpha',
   appUrl: appUrl,
-  appDescription: 'read, write, and share encrypted notes stored on your '
+  appDescription: 'read, write, and share encrypted Tenant Information Records stored on your '
       'own personal online data store',
   messageTemplate: '''
 You might like to try the {appName} app, available online here:
 
 {appUrl}
 
-Signing into {appName} will set up your data vault so you can create and share private, encrypted notes with other Solid users.''',
+Signing into {appName} will set up your data vault so you can create and share private, encrypted Tenant Information Records with other Solid users.''',
   subject: 'Try the rrm_alpha app on your Solid POD',
   tooltip: '''
 

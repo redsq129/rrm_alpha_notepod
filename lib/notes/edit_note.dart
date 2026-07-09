@@ -1,4 +1,4 @@
-/// A stateful widget to edit notes owned by the user.
+/// A widget to edit notes owned by the user.
 ///
 // Time-stamp: <Wednesday 2025-07-16 14:37:09 +1000 Graham Williams>
 ///
@@ -26,22 +26,24 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:solidui/solidui.dart';
 
 import 'package:rrm_alpha/models/note.dart';
-import 'package:rrm_alpha/notes/view_note.dart';
-import 'package:rrm_alpha/widgets/note_edit_scroll_view.dart';
+import 'package:rrm_alpha/notes/new_edit_note.dart';
 
-/// A [StatefulWidget] to edit notes owned by the user.
+/// A widget to edit notes owned by the user.
+///
+/// Editing is done through the same Account Application data-entry form
+/// used to create a note (see [NewNote]): supplying [note] as its
+/// `existingNote` pre-fills that form from the note's current content and
+/// makes Save/Back update the note in place instead of creating a new one.
 ///
 /// Arguments:
 ///   [note] - is the data of that note.
 ///   [scaffoldController] - Controller for the Solid scaffold.
 
-class EditNote extends StatefulWidget {
+class EditNote extends StatelessWidget {
   /// Data object for the selected note.
   final Note note;
   final SolidScaffoldController scaffoldController;
@@ -53,112 +55,10 @@ class EditNote extends StatefulWidget {
   });
 
   @override
-  EditNoteState createState() => EditNoteState();
-}
-
-class EditNoteState extends State<EditNote> {
-  final formKey = GlobalKey<FormBuilderState>();
-
-  TextEditingController? _textController;
-
-  /// Scroll controller for single child scroll view.
-  late final ScrollController _scrollController;
-
-  /// Scaffold controller
-  late final SolidScaffoldController _scaffoldController;
-
-  /// Focus node for note title text field.
-  late final FocusNode _focusTitle;
-
-  /// Focus node for note content text field.
-  late final FocusNode _focusContent;
-
-  /// Note
-  late final Note _note;
-
-  /// Note text content
-  String data = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _note = widget.note;
-    _scaffoldController = widget.scaffoldController;
-    // Initialise note content field
-    _textController = TextEditingController();
-    _textController!.text = _note.content!.noteContent;
-    // Start listening to changes.
-    _textController!.addListener(_renderMarkdown);
-    _scrollController = ScrollController();
-    // Focus node for the title text field
-    // If 'TAB' key press, move to note content text field
-    _focusTitle = FocusNode(
-      onKeyEvent: (FocusNode node, KeyEvent evt) {
-        if (evt.logicalKey == LogicalKeyboardKey.tab) {
-          if (evt is KeyDownEvent) {
-            // Move focus
-            _focusContent.requestFocus();
-          }
-          return KeyEventResult.handled;
-        } else {
-          return KeyEventResult.ignored;
-        }
-      },
-    );
-    // Focus node for the note content markdown editor
-    _focusContent = FocusNode();
-    // To enable the ENTER => SAVE functionality within a note, replace the
-    // above line with the following. For now we will stay with current
-    // behaviour. (20250714 gjw).
-    //
-    // _focusNode = FocusNode(
-    //   onKeyEvent: (FocusNode node, KeyEvent evt) {
-    //     if (!HardwareKeyboard.instance.isShiftPressed &&
-    //         evt.logicalKey.keyLabel == 'Enter') {
-    //       if (evt is KeyDownEvent) {
-    //         // Save note when enter (not shift-enter) pressed
-    //         NoteFileHelper().saveNote(context, _textController!, formKey, widget.note);
-    //       }
-    //       return KeyEventResult.handled;
-    //     } else {
-    //       return KeyEventResult.ignored;
-    //     }
-    //   },
-    // );
-  }
-
-  @override
-  void dispose() {
-    _textController!.dispose(); // Dispose the TextEditingController
-    _scrollController.dispose(); // Dispose the ScrollController
-    _focusTitle.dispose(); // Dispose the title focus node
-    _focusContent.dispose(); // Dispose the content focus node
-    super.dispose();
-  }
-
-  void _renderMarkdown() {
-    setState(() {
-      data = _textController!.text;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return NoteEditScrollView(
-      formKey: formKey,
-      textController: _textController,
-      scaffoldController: _scaffoldController,
-      focusTitle: _focusTitle,
-      focusContent: _focusContent,
-      childPage: ViewNote(
-        note: _note,
-        scaffoldController: _scaffoldController,
-      ),
-      data: data,
-      prevNote: _note,
-      noteTitle: _note.content!.noteTitle,
-      isExisting: true,
-      isExternal: _note.isExternalRes,
+    return NewNote(
+      scaffoldController: scaffoldController,
+      existingNote: note,
     );
   }
 }

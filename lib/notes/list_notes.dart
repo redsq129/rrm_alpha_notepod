@@ -31,7 +31,7 @@ import 'package:rrm_alpha/constants/ui.dart';
 import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/models/selected_note.dart';
 import 'package:rrm_alpha/notes/list_notes_widgets.dart';
-import 'package:rrm_alpha/notes/new_note.dart';
+import 'package:rrm_alpha/notes/new_edit_note.dart';
 
 /// A [stateful] widget to list notes accessible to the
 /// user.

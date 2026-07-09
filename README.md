@@ -1,4 +1,4 @@
-# Private and Shareable Notes
+# Tenant Information Records for the Residential Rental Market
 
 [![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
@@ -14,7 +14,7 @@
 [![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/rrm_alpha)
 
 rrm_alpha is a [solidui](https://github.com/anusii/solidui) based app to
-support the secure and private storage and sharing of personal notes
+support the secure and private storage and sharing of tenant information records
 on your own encrypted personal online datastore (Pod) hosted on any
 [Solid Server](https://solidproject.org/about). The app was developed
 by the [ANU Software Innovation Institute](https://sii.anu.edu.au) and
@@ -22,7 +22,7 @@ written by [Anushka Vidanage](https://github.com/anushkavidanage),
 [Graham Williams](https://github.com/gjwgit), and [Jessica
 Moore](https://github.com/jesscmoore).
 
-If you appreciate the app then please show some ❤️ and star the [GitHub
+If you like the app then please show some ❤️ and star the [GitHub
 Repository](https://github.com/anusii/rrm_alpha) to support the
 project.  You can install the app from different repositories
 including [SnapCraft](https://snapcraft.io/rrm_alpha) for Linux.
