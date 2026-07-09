@@ -42,7 +42,7 @@ on:
       - installers
 
 env:
-  APP: notepod
+  APP: rrm_alpha
   RELEASE: dev
   LINUX_PKGS: libsecret-1-dev
   MACOS_APP_RELEASE_UNSIGNED_PATH: build/macos/Build/Products/Release-unsigned
@@ -537,7 +537,7 @@ jobs:
   ########################################################################
   # MACOS - DISTRIBUTION CERTIFICATE SIGNED FOR UPLOAD AND ACCESS FROM APP STORE/APP STORE TESTFLIGHT
 
-  # The created notepod.pkg can be uploaded to app store manually with
+  # The created rrm_alpha.pkg can be uploaded to app store manually with
   # macos Transporter app, or with codemagic-cli-tools app-store-connect with an app store API key.
   # Uses Mac App Distrtibution cert and associated profile
   # for app store distribution to sign the .app,
@@ -546,15 +546,15 @@ jobs:
   # or via App Store Testflight.
   # Set staging config flavor in macos/project.yml
   # CODE_SIGN_IDENTITY: "3rd Party Mac Developer Application"
-  # PROVISIONING_PROFILE_SPECIFIER: "NotePod_Mac_Distribution_Mac_Appstore_Connect"
+  # PROVISIONING_PROFILE_SPECIFIER: "rrm_alpha_Mac_Distribution_Mac_Appstore_Connect"
   # ie.
   # Build Certificate name: Togaware Pty Ltd
   # Build Certificate type: Mac App Distrtibution
   # Install Certificate name: Togaware Pty Ltd
   # Install Certificate type: 3rd Party Mac Developer Installer
-  # Profile name: NotePod_Mac_Distribution_Mac_Appstore_Connect
+  # Profile name: rrm_alpha_Mac_Distribution_Mac_Appstore_Connect
   # Profile type: Mac Appstore Connect (distribution profile)
-  # Profile linked apps: com.togaware.notepod
+  # Profile linked apps: com.togaware.rrm_alpha
   # Profile linked certificate: Togaware Pty Ltd
   # Build Certificate creation date: 29/10/2025
   # Install Certificate creation date: 10/12/2025

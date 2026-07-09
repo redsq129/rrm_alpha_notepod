@@ -54,7 +54,7 @@ const lightRed = Color.fromARGB(255, 255, 88, 77);
 
 //const confirmGreen = Colors.green;
 
-List<Color> defaultNotepodColors = const [
+List<Color> defaultrrm_alphaColors = const [
   darkBlue,
   darkGreen,
   darkCopper,

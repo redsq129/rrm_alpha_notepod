@@ -1,4 +1,4 @@
-/// NotePod - Define the main entry point for the app.
+/// rrm_alpha - Define the main entry point for the app.
 ///
 // Time-stamp: <Tuesday 2025-10-21 08:43:32 +1100 Graham Williams>
 ///
@@ -29,12 +29,12 @@ import 'package:flutter/material.dart';
 
 import 'package:window_manager/window_manager.dart';
 
-import 'package:notepod/notepod.dart';
-import 'package:notepod/utils/is_desktop.dart';
-import 'package:notepod/utils/public_sharing_transform.dart'
-    show registerNotepodPublicSharingHooks;
+import 'package:rrm_alpha/rrm_alpha.dart';
+import 'package:rrm_alpha/utils/is_desktop.dart';
+import 'package:rrm_alpha/utils/public_sharing_transform.dart'
+    show registerrrm_alphaPublicSharingHooks;
 
-/// Main entry point for the [NotePod] application.
+/// Main entry point for the [rrm_alpha] application.
 
 void main() async {
   // We require [async] because we asynchronously [await] the window manager
@@ -51,12 +51,12 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Wire NotePod's per-note inner content (de)encryption into solidpod's
+  // Wire rrm_alpha's per-note inner content (de)encryption into solidpod's
   // public/auth-user sharing lifecycle so that publicly shared notes are
   // genuinely readable plaintext at their URL, and so that revocation
   // restores the at-rest representation.
 
-  registerNotepodPublicSharingHooks();
+  registerrrm_alphaPublicSharingHooks();
 
   if (isDesktop) {
     // 20251009 jm: Required to initialize the
@@ -76,7 +76,7 @@ void main() async {
 
       // alwaysOnTop: true,
 
-      title: 'NotePod - Private and Shareable Notes',
+      title: 'rrm alpha rrm_alpha - PI Data form to be saved and shared as a *.json record ',
     );
 
     // Once the window manager is ready we reconfigure it a little.
@@ -91,5 +91,5 @@ void main() async {
   // The runApp() function takes the given Widget and makes it the root of the
   // widget tree.
 
-  runApp(NotePod());
+  runApp(rrm_alpha());
 }

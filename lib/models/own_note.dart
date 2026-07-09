@@ -27,8 +27,8 @@ library;
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/models/note_content.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/note_content.dart';
 
 /// Data model for user's note
 

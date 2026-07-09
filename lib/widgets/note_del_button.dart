@@ -28,11 +28,11 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/common/rest_api/file_helper.dart';
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/colours.dart';
-import 'package:notepod/constants/ui.dart';
-import 'package:notepod/widgets/loading_animation.dart' as loading;
+import 'package:rrm_alpha/common/rest_api/file_helper.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/colours.dart';
+import 'package:rrm_alpha/constants/ui.dart';
+import 'package:rrm_alpha/widgets/loading_animation.dart' as loading;
 
 /// A stylised delete button widget for notes. A simpler version
 /// of the button is displayed with icon only if [simple] or

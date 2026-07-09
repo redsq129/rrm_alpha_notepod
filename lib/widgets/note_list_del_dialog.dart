@@ -28,11 +28,11 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/ui.dart';
-import 'package:notepod/models/selected_note.dart';
-import 'package:notepod/widgets/note_back_button.dart';
-import 'package:notepod/widgets/note_list_del_button.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/ui.dart';
+import 'package:rrm_alpha/models/selected_note.dart';
+import 'package:rrm_alpha/widgets/note_back_button.dart';
+import 'package:rrm_alpha/widgets/note_list_del_button.dart';
 
 /// A page listing unparseable note files with button to delete
 /// all files in the list.

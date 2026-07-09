@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
 
 import 'package:markdown_widget/markdown_widget.dart';
 
-import 'package:notepod/widgets/markdown_theme.dart';
+import 'package:rrm_alpha/widgets/markdown_theme.dart';
 
 // Displays note content with MarkdownBlock(). The optional [context] lets
 // the rendered markdown follow the current theme so that fenced code blocks

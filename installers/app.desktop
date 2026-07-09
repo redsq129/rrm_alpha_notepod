@@ -1,8 +1,8 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=Notepod
+Name=rrm_alpha
 Version=1.0
 Terminal=false
 Type=Application
-Exec=.local/bin/notepod
-Icon=/home/USER/.local/share/icons/hicolor/256x256/apps/notepod.png
+Exec=.local/bin/rrm_alpha
+Icon=/home/USER/.local/share/icons/hicolor/256x256/apps/rrm_alpha.png

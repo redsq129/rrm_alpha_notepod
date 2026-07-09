@@ -29,8 +29,8 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/widgets/note_back_button.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/widgets/note_back_button.dart';
 
 /// A [StatefulWidget] for sharing a note owned by the user.
 ///

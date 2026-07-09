@@ -14,16 +14,16 @@
     - [iOS development (Optional)](#ios-development-optional)
     - [Flutter doctor ](#flutter-doctor-)
   - [Test run Flutter](#test-run-flutter)
-  - [Get Notepod code](#get-notepod-code)
-  - [Make changes to the Notepod app](#make-changes-to-the-notepod-app)
-    - [Tackle a Notepod issue](#tackle-a-notepod-issue)
+  - [Get rrm_alpha code](#get-rrm_alpha-code)
+  - [Make changes to the rrm_alpha app](#make-changes-to-the-rrm_alpha-app)
+    - [Tackle a rrm_alpha issue](#tackle-a-rrm_alpha-issue)
   - [More resources](#more-resources)
 
 This exercise provides resources to install Flutter and get started developing PODs based apps with Flutter.
 
-You will have the opportunity to build and run the Notepod app on your local machine, and add small features to the Notepod app.
+You will have the opportunity to build and run the rrm_alpha app on your local machine, and add small features to the rrm_alpha app.
 
-You do not need to run a Solid server, as the Notepod app uses the Community Solid Server open source software running on the Solid Community AU server <https://pods.solidcommunity.au>
+You do not need to run a Solid server, as the rrm_alpha app uses the Community Solid Server open source software running on the Solid Community AU server <https://pods.solidcommunity.au>
 
 ## Install Flutter<a name="install_flutter"></a>
 
@@ -110,30 +110,30 @@ You can also run `flutter --version` to check the installed version of the Flutt
 
 You can also check your flutter install by running the flutter demo app on your preferred device - see [Test drive flutter](https://docs.flutter.dev/get-started/test-drive?tab=terminal)
 
-## Get Notepod code<a name="get_notepod"></a>
+## Get rrm_alpha code<a name="get_rrm_alpha"></a>
 
-Now lets get the Notepod project setup in your flutter development environment.
+Now lets get the rrm_alpha project setup in your flutter development environment.
 
-Go to [Notepod repo](https://github.com/anusii/notepod). You can either Clone the repo by
+Go to [rrm_alpha repo](https://github.com/anusii/rrm_alpha). You can either Clone the repo by
 
 ```bash
-git clone https://github.com/anusii/notepod.git
+git clone https://github.com/anusii/rrm_alpha.git
 ```
 
 or you can fork it to your own GitHub account.
 
-Now open your VS Code IDE. Go to `File -> Open Folder` and select the local notepod directory.
+Now open your VS Code IDE. Go to `File -> Open Folder` and select the local rrm_alpha directory.
 
-*You are now ready to make changes to the Notepod app with Flutter.*
+*You are now ready to make changes to the rrm_alpha app with Flutter.*
 
-## Make changes to the Notepod app<a name="edit_notepod"></a>
+## Make changes to the rrm_alpha app<a name="edit_rrm_alpha"></a>
 
-There are a couple of options you can use to run the Notepod app.
+There are a couple of options you can use to run the rrm_alpha app.
 
 **Option 1**
 Open the Terminal in the VS Code (if not open by default at the bottom of the window) by going to `Terminal -> New Terminal` in the top menu bar.
 
-Go to the `notepod` directory and run the following command.
+Go to the `rrm_alpha` directory and run the following command.
 
 ```bash
 flutter run -d [your_device]
@@ -149,19 +149,19 @@ When running for the first time it will ask to setup Windows device for the app.
 
 **Option 2**
 
-In the VS Code Explorer bar open the file `notepod -> lib -> main.dart`. A play button will apear on the top right had coner of your window. Click that button and select either one of the options and the app will then run.
+In the VS Code Explorer bar open the file `rrm_alpha -> lib -> main.dart`. A play button will apear on the top right had coner of your window. Click that button and select either one of the options and the app will then run.
 
 For the first time it will again ask for you to setup the preferred device for the app to run on.
 
-**Editing Notepod app**
+**Editing rrm_alpha app**
 
-Open the Notepod repo in your favourite editor. You can use any editor you like.
+Open the rrm_alpha repo in your favourite editor. You can use any editor you like.
 
 Edit some text in the app, by searching and changing that text in your editor. Press `R` to hot restart the app to see your changes.
 
-### Tackle a Notepod issue<a name="notepod_issue"></a>
+### Tackle a rrm_alpha issue<a name="rrm_alpha_issue"></a>
 
-Now you can have a go at contributing to an [issue in the Notepod repo](https://github.com/anusii/notepod/issues).
+Now you can have a go at contributing to an [issue in the rrm_alpha repo](https://github.com/anusii/rrm_alpha/issues).
 
 Pick an issue, create a branch, make your changes, and submit a pull request - we're excited to see your contributions!
 

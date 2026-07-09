@@ -14,7 +14,7 @@ import 'package:emacs_text_field/emacs_text_field.dart';
 import 'package:markdown_toolbar/markdown_toolbar.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 
-import 'package:notepod/widgets/markdown_theme.dart';
+import 'package:rrm_alpha/widgets/markdown_theme.dart';
 
 Widget markdownEditor(
   BuildContext context,

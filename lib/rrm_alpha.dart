@@ -1,4 +1,4 @@
-/// NotePod - The primary [MaterialApp] widget.
+/// rrm_alpha - The primary [MaterialApp] widget.
 ///
 // Time-stamp: <Wednesday 2026-06-17 16:31:56 +1000 Graham Williams>
 ///
@@ -29,20 +29,20 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/colours.dart';
-import 'package:notepod/home.dart';
-import 'package:notepod/notes/list_my_notes_screen.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/colours.dart';
+import 'package:rrm_alpha/home.dart';
+import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
 
-/// The root widget for the [NotePod] app.
+/// The root widget for the [rrm_alpha] app.
 ///
 /// The widget essentially orchestrates the building of other
 /// widgets. Generically we set up to build a Home widget containing the
 /// App. For SolidPod we wrap the Home widget within [SolidLogin] to start with
 /// a login screen, though this is optional.
 
-class NotePod extends StatelessWidget {
-  NotePod({super.key});
+class rrm_alpha extends StatelessWidget {
+  rrm_alpha({super.key});
 
   final scaffoldController = SolidScaffoldController();
 

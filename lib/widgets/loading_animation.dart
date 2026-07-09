@@ -1,4 +1,4 @@
-/// Loading animation dialog for NotePod.
+/// Loading animation dialog for rrm_alpha.
 ///
 // Time-stamp: <Friday 2025-06-27 13:53:06 +1000 Graham Williams>
 ///
@@ -29,9 +29,9 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart' as solidui;
 
-import 'package:notepod/constants/colours.dart';
+import 'package:rrm_alpha/constants/colours.dart';
 
-/// Display a NotePod-styled loading animation dialog.
+/// Display a rrm_alpha-styled loading animation dialog.
 
 Future<void> showAnimationDialog(
   BuildContext context,
@@ -44,7 +44,7 @@ Future<void> showAnimationDialog(
     alertMsg,
     showPathBackground,
     null,
-    colors: defaultNotepodColors,
+    colors: defaultrrm_alphaColors,
     strokeWidth: 4.0,
     width: 150,
     height: 250,

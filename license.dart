@@ -1,4 +1,4 @@
-/// NotePod - A note taking app with notes shared through private PODs.
+/// rrm_alpha - A note taking app with notes shared through private PODs.
 ///
 // Time-stamp: <Thursday 2026-02-19 09:59:21 +1100 Graham Williams>
 ///

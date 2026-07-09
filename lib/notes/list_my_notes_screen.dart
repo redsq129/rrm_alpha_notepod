@@ -26,17 +26,17 @@ import 'package:flutter/material.dart';
 import 'package:solidpod/solidpod.dart' show isUserLoggedIn;
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/models/notes_call_result.dart';
-import 'package:notepod/models/selected_note.dart';
-import 'package:notepod/notes/list_notes.dart';
-import 'package:notepod/notes/new_note.dart';
-import 'package:notepod/services/note_service.dart';
-import 'package:notepod/widgets/err_card.dart';
-import 'package:notepod/widgets/msg_card.dart';
-import 'package:notepod/widgets/not_logged_in_card.dart';
-import 'package:notepod/widgets/note_list_del_dialog.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/models/notes_call_result.dart';
+import 'package:rrm_alpha/models/selected_note.dart';
+import 'package:rrm_alpha/notes/list_notes.dart';
+import 'package:rrm_alpha/notes/new_note.dart';
+import 'package:rrm_alpha/services/note_service.dart';
+import 'package:rrm_alpha/widgets/err_card.dart';
+import 'package:rrm_alpha/widgets/msg_card.dart';
+import 'package:rrm_alpha/widgets/not_logged_in_card.dart';
+import 'package:rrm_alpha/widgets/note_list_del_dialog.dart';
 
 /// A [StatefulWidget] that fetches the user's notes in their app data folder
 /// retrieving the note data map containing data and properties of each note

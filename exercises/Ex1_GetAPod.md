@@ -1,31 +1,31 @@
-# Exercise 1: Get a POD and login to Notepod app
+# Exercise 1: Get a POD and login to rrm_alpha app
 
 **Table of Contents**
 
-- [Exercise 1: Get a POD and login to Notepod app](#exercise-1-get-a-pod-and-login-to-notepod-app)
+- [Exercise 1: Get a POD and login to rrm_alpha app](#exercise-1-get-a-pod-and-login-to-rrm_alpha-app)
   - [Setup](#setup)
   - [Get a POD](#get-a-pod)
   - [Login and set master encryption key](#login-and-set-master-encryption-key)
 
-This exercise will show you how to create a POD on the solid server host https://solidcommunity.au/ and how to use the Notepod app to create and save notes to your POD.
+This exercise will show you how to create a POD on the solid server host https://solidcommunity.au/ and how to use the rrm_alpha app to create and save notes to your POD.
 
 ## Setup<a name="setup"></a>
 
-**Option 1:** Open the Notepod app using the web app or download links for the binary for your OS:
+**Option 1:** Open the rrm_alpha app using the web app or download links for the binary for your OS:
 
-- [Notepod web app](https://notepod.solidcommunity.au/)
+- [rrm_alpha web app](https://rrm_alpha.solidcommunity.au/)
 
 Using Flutter framework, we can build apps for multiple platforms with a single codebase.
 
-Go to [Downloads](https://github.com/anusii/notepod/tree/main/installers) to get the Notepod app binaries for your platform:
+Go to [Downloads](https://github.com/anusii/rrm_alpha/tree/main/installers) to get the rrm_alpha app binaries for your platform:
 
-- notepod.dmg (Mac)
-- notepod.exe (Windows)
-- notepod.apk (Android)
-- notepod.tar.gz (Linux)
+- rrm_alpha.dmg (Mac)
+- rrm_alpha.exe (Windows)
+- rrm_alpha.apk (Android)
+- rrm_alpha.tar.gz (Linux)
 
 
-**Option 2:** If you already have `flutter` installed and setup to build to `chrome` or desired platform (Linux, MacOS, Windows, Android, iOS), you may build and run the Notepod app locally on your machine.
+**Option 2:** If you already have `flutter` installed and setup to build to `chrome` or desired platform (Linux, MacOS, Windows, Android, iOS), you may build and run the rrm_alpha app locally on your machine.
 
 ```
 flutter devices
@@ -37,12 +37,12 @@ flutter run -d [your device]
 
 ## Get a POD<a name="get_pod"></a>
 
-The Notepod app requires you to have a POD hosted on any solid server, which is identified on the internet with a webID comprising the unique resource identifier (URI) of your POD. We have setup a solid server for the Solid AU Community for experimenting with Solid. You can use this solid server to get a POD if you don't have one on any Solid server.
+The rrm_alpha app requires you to have a POD hosted on any solid server, which is identified on the internet with a webID comprising the unique resource identifier (URI) of your POD. We have setup a solid server for the Solid AU Community for experimenting with Solid. You can use this solid server to get a POD if you don't have one on any Solid server.
 
 
-Open [Notepod app](https://notepod.solidcommunity.au/) and click `Register`.
+Open [rrm_alpha app](https://rrm_alpha.solidcommunity.au/) and click `Register`.
 
-![Get a POD](../assets/images/notepod_register.png)
+![Get a POD](../assets/images/rrm_alpha_register.png)
 
 This will take you to https://pods.solidcommunity.au, click `Sign up for an account`
 
@@ -74,10 +74,10 @@ Note: to look up your webID at anytime, login to https://pods.solidcommunity.au/
 
 ## Login and set master encryption key<a name="set_encrypt"></a>
 
-The Notepod app stores your files in encrypted form. To do this you must create a password to use as the master key for encrypting your POD files.
-The first time you login in to the Notepod app, you need to set the master key for encryption. Your files are only decrypted in the app. Each time you subsequently login, you will need to provide the master key after app login to see your files.
+The rrm_alpha app stores your files in encrypted form. To do this you must create a password to use as the master key for encrypting your POD files.
+The first time you login in to the rrm_alpha app, you need to set the master key for encryption. Your files are only decrypted in the app. Each time you subsequently login, you will need to provide the master key after app login to see your files.
 
-Open [Notepod app](https://notepod.solidcommunity.au/) and click `Login`.
+Open [rrm_alpha app](https://rrm_alpha.solidcommunity.au/) and click `Login`.
 
 This may show you a Community Solid Server login pop up if you are not already logged in to your POD on https://pods.solidcommunity.au.
 
@@ -85,18 +85,18 @@ This may show you a Community Solid Server login pop up if you are not already l
 
 If you have recently logged in to your POD on this Solid servier, you will see a  Community Solid Server authorization pop up with the last credentials which you've used on the Solid Community AU host.
 
-Click `Authorize` to login to your POD in the Notepod app.
+Click `Authorize` to login to your POD in the rrm_alpha app.
 
 ![POD authorization](../assets/images/server_pod_auth_popup.png)
 
 This will take you to the initial Setup Wizard to finish setting up your POD. This shows the resources (files) being created in your POD on the Solid Community AU solid server, and ask you to set an master encryption key which will be used to encrypt the notes on your POD.
 
-![Notepod setup wizard](../assets/images/pod_wizard.png)
+![rrm_alpha setup wizard](../assets/images/pod_wizard.png)
 
 Enter a new password to use as your master encryption key for this POD.
 
 Click the confirm checkbox and click `Submit`.
 
-You are now setup and logged in the Notepod app.
+You are now setup and logged in the rrm_alpha app.
 
-Repeat login to the Notepod app will typically remember your pod webID in the Authorize window.
+Repeat login to the rrm_alpha app will typically remember your pod webID in the Authorize window.

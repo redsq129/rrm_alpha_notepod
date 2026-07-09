@@ -1,4 +1,4 @@
-/// Markdown → PDF widget conversion for NotePod note exports.
+/// Markdown → PDF widget conversion for rrm_alpha note exports.
 ///
 /// Converts a Markdown string into a list of `pw.Widget`s for embedding in a
 /// printing-package PDF document. Extracted from import_export_screen.dart to
@@ -20,7 +20,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-import 'package:notepod/models/own_note.dart';
+import 'package:rrm_alpha/models/own_note.dart';
 
 /// Build the notes PDF bytes for [notes]. Uses Noto Sans so characters
 /// outside basic Latin render without the pdf package falling back to
@@ -56,7 +56,7 @@ Future<Uint8List> buildNotesPdf(List<OwnNote> notes) async {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           pw.Text(
-            'NotePod - Notes Export',
+            'rrm_alpha - Notes Export',
             style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
           ),
           pw.Text(

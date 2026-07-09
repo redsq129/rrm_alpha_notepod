@@ -39,7 +39,7 @@ const noteFileNamePrefix = 'note-';
 // 20251001 gjw But those are tempalted files and checking for special cases
 // there is awkward.
 
-String notepodTerms = 'https://solidcommunity.au/' 'predicates/terms#';
+String rrm_alphaTerms = 'https://solidcommunity.au/' 'predicates/terms#';
 
 String createdDateTimePred = 'createdDateTime';
 String createdDateTimePredErr = 'createdDateERROR';
@@ -75,14 +75,14 @@ String genNoteTTLStr(
   String noteTTLStr = '''@prefix : <#>.
       @prefix foaf: <$foaf>.
       @prefix terms: <$terms>.
-      @prefix notepodTerms: <$notepodTerms>.
+      @prefix rrm_alphaTerms: <$rrm_alphaTerms>.
       $mePred
           a foaf:PersonalProfileDocument;
           terms:title "Note";
-          notepodTerms:$createdDateTimePred "$createdTimeStr";
-          notepodTerms:$modifiedDateTimePred "$updatedTimeStr";
-          notepodTerms:$noteTitlePred "$noteTitle";
-          notepodTerms:$noteContentPred "$noteContent".''';
+          rrm_alphaTerms:$createdDateTimePred "$createdTimeStr";
+          rrm_alphaTerms:$modifiedDateTimePred "$updatedTimeStr";
+          rrm_alphaTerms:$noteTitlePred "$noteTitle";
+          rrm_alphaTerms:$noteContentPred "$noteContent".''';
 
   // 20251008 jm: code to generate a corrupt note
   // for testing purposes only.
@@ -91,14 +91,14 @@ String genNoteTTLStr(
   // String noteTTLStrErr = '''@prefix : <#>.
   //     @prefix foaf: <$foaf>.
   //     @prefix terms: <$terms>.
-  //     @prefix notepodTerms: <$notepodTerms>.
+  //     @prefix rrm_alphaTerms: <$rrm_alphaTerms>.
   //     $mePred
   //         a foaf:PersonalProfileDocument;
   //         terms:title "Note";
-  //         notepodTerms:$createdDateTimePredErr "$createdTimeStr";
-  //         notepodTerms:$modifiedDateTimePred "$updatedTimeStr";
-  //         notepodTerms:$noteTitlePred "$noteTitle";
-  //         notepodTerms:$noteContentPred "$noteContent".''';
+  //         rrm_alphaTerms:$createdDateTimePredErr "$createdTimeStr";
+  //         rrm_alphaTerms:$modifiedDateTimePred "$updatedTimeStr";
+  //         rrm_alphaTerms:$noteTitlePred "$noteTitle";
+  //         rrm_alphaTerms:$noteContentPred "$noteContent".''';
 
   final String chosenTTL;
   // // Choose erroneous TTL

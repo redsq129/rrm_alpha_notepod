@@ -15,7 +15,7 @@
 	<key>provisioningProfiles</key>
 	<!-- 20251019 jesscmoore: Update these with app id and profile name -->
 	<dict>
-	<key>com.togaware.notepod</key>
+	<key>com.togaware.rrm_alpha</key>
 	<string>IOS Development Profile</string>
 	</dict>
 	<!-- <key>signingCertificate</key> -->

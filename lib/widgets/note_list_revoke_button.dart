@@ -29,11 +29,11 @@ import 'package:flutter/material.dart';
 import 'package:solidpod/solidpod.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/colours.dart';
-import 'package:notepod/constants/ui.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/widgets/loading_animation.dart' as loading;
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/colours.dart';
+import 'package:rrm_alpha/constants/ui.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/widgets/loading_animation.dart' as loading;
 
 /// A revoke button widget for updating the log record for a list
 /// of notes.

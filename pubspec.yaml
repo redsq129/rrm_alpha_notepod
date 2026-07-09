@@ -1,7 +1,7 @@
-name: notepod
-description: 'Privacy preserving note taking app using PODs.'
+name: rrm_alpha
+description: 'Entering a PI Data Form for RRM Market and storing as a *.json record in a pod'
 publish_to: 'none'
-version: 1.0.11+14
+version: 1.0.0+1
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -15,7 +15,6 @@ environment:
 #   flutter pub outdated
 
 dependencies:
-  mask_text_input_formatter: ^2.0.0
   crypto: ^3.0.3
   cupertino_icons: ^1.0.2 # An asset repository.
   encrypter_plus: ^5.1.0

@@ -18,11 +18,11 @@ This document analyses our use of encryption and answers the encryption complian
 
 - TBD
 
-## notepod components using encryption
+## rrm_alpha components using encryption
 
 Note: all components are open source code.
 
-- notepod:
+- rrm_alpha:
   - encryptVal/decryptVal():
     - uses crypto: sha256()
     - uses encrypter_plus: Key(), Encrypter(AESmode.cbc) - AES is defined in FIPS PUB 197: Advanced Encryption Standard and the ISO/IEC 18033-3: Block ciphers standard
@@ -44,7 +44,7 @@ Note: all components are open source code.
 
 Question 1: App Purpose
 
-Notepod is an app built with the Solid (Social Linked Data) specification. Using Notepod you can read, write, and share encrypted notes stored on your personal data vault (also called a Personal Online Datastore or Pod) hosted on a Solid Server.
+rrm_alpha is an app built with the Solid (Social Linked Data) specification. Using rrm_alpha you can read, write, and share encrypted notes stored on your personal data vault (also called a Personal Online Datastore or Pod) hosted on a Solid Server.
 
 Question 2: Type of Encryption
 
@@ -71,6 +71,6 @@ Question 3: will we be releasing in France
 - [ ] Yes
 - [x] No
 
-Our answer should be yes, but for App Review of early notepod versions can be No.
+Our answer should be yes, but for App Review of early rrm_alpha versions can be No.
 
-In which case, if we're only using standard encryption algorithms, then we don't need to provide any further documents to App Store for encryption compliance. And can submit for an Apple App Review to allow sharing of notepod install link to external testers, while we get the French encryption form approved.
+In which case, if we're only using standard encryption algorithms, then we don't need to provide any further documents to App Store for encryption compliance. And can submit for an Apple App Review to allow sharing of rrm_alpha install link to external testers, while we get the French encryption form approved.

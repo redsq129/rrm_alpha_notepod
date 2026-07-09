@@ -3,17 +3,17 @@
 [![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/anusii/notepod)
-[![GitHub License](https://img.shields.io/github/license/anusii/notepod)](https://github.com/anusii/notepod?tab=GPL-3.0-1-ov-file)
-[![Flutter Version](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/anusii/notepod/master/pubspec.yaml&query=$.version&label=version)](https://github.com/anusii/notepod/blob/dev/CHANGELOG.md)
-[![Last Updated](https://img.shields.io/github/last-commit/anusii/notepod?label=last%20updated)](https://github.com/anusii/notepod/commits/dev/)
-[![GitHub commit activity (dev)](https://img.shields.io/github/commit-activity/w/anusii/notepod/dev)](https://github.com/anusii/notepod/commits/dev/)
-[![GitHub Issues](https://img.shields.io/github/issues/anusii/notepod)](https://github.com/anusii/notepod/issues)
-[![Build Installers](https://github.com/anusii/notepod/actions/workflows/installers.yaml/badge.svg)](https://github.com/anusii/notepod/actions/workflows/installers.yaml)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/anusii/rrm_alpha)
+[![GitHub License](https://img.shields.io/github/license/anusii/rrm_alpha)](https://github.com/anusii/rrm_alpha?tab=GPL-3.0-1-ov-file)
+[![Flutter Version](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/anusii/rrm_alpha/master/pubspec.yaml&query=$.version&label=version)](https://github.com/anusii/rrm_alpha/blob/dev/CHANGELOG.md)
+[![Last Updated](https://img.shields.io/github/last-commit/anusii/rrm_alpha?label=last%20updated)](https://github.com/anusii/rrm_alpha/commits/dev/)
+[![GitHub commit activity (dev)](https://img.shields.io/github/commit-activity/w/anusii/rrm_alpha/dev)](https://github.com/anusii/rrm_alpha/commits/dev/)
+[![GitHub Issues](https://img.shields.io/github/issues/anusii/rrm_alpha)](https://github.com/anusii/rrm_alpha/issues)
+[![Build Installers](https://github.com/anusii/rrm_alpha/actions/workflows/installers.yaml/badge.svg)](https://github.com/anusii/rrm_alpha/actions/workflows/installers.yaml)
 
-[![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/notepod)
+[![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/rrm_alpha)
 
-NotePod is a [solidui](https://github.com/anusii/solidui) based app to
+rrm_alpha is a [solidui](https://github.com/anusii/solidui) based app to
 support the secure and private storage and sharing of personal notes
 on your own encrypted personal online datastore (Pod) hosted on any
 [Solid Server](https://solidproject.org/about). The app was developed
@@ -23,35 +23,35 @@ written by [Anushka Vidanage](https://github.com/anushkavidanage),
 Moore](https://github.com/jesscmoore).
 
 If you appreciate the app then please show some ❤️ and star the [GitHub
-Repository](https://github.com/anusii/notepod) to support the
+Repository](https://github.com/anusii/rrm_alpha) to support the
 project.  You can install the app from different repositories
-including [SnapCraft](https://snapcraft.io/notepod) for Linux.
+including [SnapCraft](https://snapcraft.io/rrm_alpha) for Linux.
 
 The latest version of the app can be run online at
-[notepod.solidcommunity.au](https://notepod.solidcommunity.au) with no
+[rrm_alpha.solidcommunity.au](https://rrm_alpha.solidcommunity.au) with no
 installation required, or downloaded and installed for your platform
 from the [Solid Community AU](https://solidcommunity.au) repository:
 
 <!-- markdownlint-disable MD013 -->
 + **Web**
-  [solidcommunity](https://notepod.solidcommunity.au/);
+  [solidcommunity](https://rrm_alpha.solidcommunity.au/);
 + **Android**
-  [apk](https://solidcommunity.au/installers/notepod.apk);
+  [apk](https://solidcommunity.au/installers/rrm_alpha.apk);
 + **GNU/Linux**
-  [snap](https://solidcommunity.au/installers/notepod_amd64.snap) or
-  [deb](https://solidcommunity.au/installers/notepod_amd64.deb) or
-  [zip](https://solidcommunity.au/installers/notepod-linux.zip);
+  [snap](https://solidcommunity.au/installers/rrm_alpha_amd64.snap) or
+  [deb](https://solidcommunity.au/installers/rrm_alpha_amd64.deb) or
+  [zip](https://solidcommunity.au/installers/rrm_alpha-linux.zip);
 + **macOS**
-  [dmg staging](https://solidcommunity.au/installers/notepod-macos-staging.dmg) or
-  [dmg unsigned](https://solidcommunity.au/installers/notepod-macos-unsigned.dmg) or
-  [zip unsigned](https://solidcommunity.au/installers/notepod-macos-unsigned.zip);
+  [dmg staging](https://solidcommunity.au/installers/rrm_alpha-macos-staging.dmg) or
+  [dmg unsigned](https://solidcommunity.au/installers/rrm_alpha-macos-unsigned.dmg) or
+  [zip unsigned](https://solidcommunity.au/installers/rrm_alpha-macos-unsigned.zip);
 + **Windows**
-  [zip](https://solidcommunity.au/installers/notepod-windows.zip) or
-  [inno](https://solidcommunity.au/installers/notepod-windows-inno.exe).
+  [zip](https://solidcommunity.au/installers/rrm_alpha-windows.zip) or
+  [inno](https://solidcommunity.au/installers/rrm_alpha-windows-inno.exe).
 <!-- markdownlint-enable MD013 -->
 
 Contributions are welcome. Visit
-[github](https://github.com/anusii/notepod) to submit an issue or,
+[github](https://github.com/anusii/rrm_alpha) to submit an issue or,
 even better, fork the repository yourself, update the code, and submit
 a Pull Request. The app is implemented in
 [Flutter](https://flutter.dev) using
@@ -60,7 +60,7 @@ the Solid Pod interactions. Thank you.
 
 ## Introduction
 
-NotePod utilises [Solid Pods](https://solidproject.org/about) to read,
+rrm_alpha utilises [Solid Pods](https://solidproject.org/about) to read,
 write, and share encrypted notes stored on your personal online
 datastore (Pod) hosted on a [Solid
 Server](https://solidproject.org/get_a_pod).  You control which server
@@ -77,7 +77,7 @@ World Wide Web and is the latest innovation from the inventor of the
 WWW, Sir Tim Berners-Lee. Obtain a Pod for yourself on any Solid
 server and link it to your app.
 
-Use cases for NotePod include writing quick notes while on the move to
+Use cases for rrm_alpha include writing quick notes while on the move to
 come back to later on, capturing shopping lists that can be shared
 with your family and called up the next time anyone of the family is
 at the shops, collecting together notes on a related topic, and much
@@ -91,12 +91,12 @@ Desktop version:
 
 <!-- markdownlint-disable MD033 MD045 MD013 -->
 <img
-src="https://raw.githubusercontent.com/anusii/notepod/dev/assets/screenshots/shopping.png" width=600>
+src="https://raw.githubusercontent.com/anusii/rrm_alpha/dev/assets/screenshots/shopping.png" width=600>
 
 Mobile Phone version:
 
 <img
-src="https://raw.githubusercontent.com/anusii/notepod/dev/assets/screenshots/shopping_android.png" width=300>
+src="https://raw.githubusercontent.com/anusii/rrm_alpha/dev/assets/screenshots/shopping_android.png" width=300>
 <!-- markdownlint-enable MD033 MD045 MD013 -->
 
 ## Obtaining a Pod
@@ -110,7 +110,7 @@ Server](https://pods.solidcommunity.au) or any one of the available
 ## Online Demo
 
 Once you have your own Pod visit
-[https://notepod.solidcommunity.au](https://notepod.solidcommunity.au)
+[https://rrm_alpha.solidcommunity.au](https://rrm_alpha.solidcommunity.au)
 and login to your Pod. Be sure to update the default Solid Server
 listed on the login page. Write and save a few notes, edit saved
 notes, and maybe share some notes with other users. Access your notes
@@ -122,7 +122,7 @@ You can install the app onto your own device from your device's
 software repository or directly by using one of our installers. The
 app will then run locally on your own device rather than hosted on the
 web server. The installers are available for all platforms from
-[github](https://github.com/anusii/notepod/blob/dev/README.md).
+[github](https://github.com/anusii/rrm_alpha/blob/dev/README.md).
 
 ## App Startup
 
@@ -130,9 +130,9 @@ On starting up the app you will see the login screen where a user's
 WebID is to be entered. The app itself does not know your login
 details. That is handled by a remote Identify Provider of your choice.
 
-![login](https://raw.githubusercontent.com/anusii/notepod/dev/assets/screenshots/login.png)
+![login](https://raw.githubusercontent.com/anusii/rrm_alpha/dev/assets/screenshots/login.png)
 
-## Contribute to the NotePod Flutter App
+## Contribute to the rrm_alpha Flutter App
 
 As a developer you can run the app directly from its software source
 code yourself with a little setup. You can then modify the app to suit
@@ -157,8 +157,8 @@ Found 4 connected devices:
 ```
 <!-- markdownlint-enable MD013 -->
 
-You can then `git clone https://github.com/anusii/notepod` to clone a
-local copy of the software source code. You can run the notepod app in
+You can then `git clone https://github.com/anusii/rrm_alpha` to clone a
+local copy of the software source code. You can run the rrm_alpha app in
 debug mode on your chosen device by specifying enough of the device
 name to be uniquely identifiable. E.g. for chrome use:
 
@@ -167,7 +167,7 @@ flutter run -d chrome
 ```
 
 When you have completed the setup of your platform, you are ready for
-the [NotePod Getting Started](exercises/README.md) exercises where
+the [rrm_alpha Getting Started](exercises/README.md) exercises where
 you can create a Pod, make and share notes.
 
 ### Extra setup for MacOS/iOS
@@ -218,7 +218,7 @@ of Pods-based apps with flutter
 
 ## Related Apps
 
-[https://notepod.vincenttunru.com/](https://notepod.vincenttunru.com/)
+[https://rrm_alpha.vincenttunru.com/](https://rrm_alpha.vincenttunru.com/)
 
 <!-- markdownlint-disable MD036 -->
 *Time-stamp: <Sunday 2026-05-17 17:28:12 +1000 Graham Williams>*

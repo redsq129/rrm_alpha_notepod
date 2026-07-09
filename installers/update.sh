@@ -213,7 +213,7 @@ if [[ "${status}" == "completed" ]]; then
     # 20251222 gjw
     #
     #    The macOS and iOS signed/certified builds are under
-    #    development with the notepod app. Once it is working there we
+    #    development with the rrm_alpha app. Once it is working there we
     #    can migrate all other apps.
 
     echo '******************** UPLOAD MACOS ZIP UNSIGNED'

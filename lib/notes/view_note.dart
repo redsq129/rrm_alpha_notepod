@@ -29,16 +29,16 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/colours.dart';
-import 'package:notepod/constants/ui.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/notes/edit_note.dart';
-import 'package:notepod/notes/list_notes_screen.dart';
-import 'package:notepod/notes/share_note.dart';
-import 'package:notepod/widgets/note_action_button.dart';
-import 'package:notepod/widgets/note_del_button.dart';
-import 'package:notepod/widgets/note_display_markdown.dart';
-import 'package:notepod/widgets/note_display_metadata.dart';
+import 'package:rrm_alpha/constants/colours.dart';
+import 'package:rrm_alpha/constants/ui.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/notes/edit_note.dart';
+import 'package:rrm_alpha/notes/list_notes_screen.dart';
+import 'package:rrm_alpha/notes/share_note.dart';
+import 'package:rrm_alpha/widgets/note_action_button.dart';
+import 'package:rrm_alpha/widgets/note_del_button.dart';
+import 'package:rrm_alpha/widgets/note_display_markdown.dart';
+import 'package:rrm_alpha/widgets/note_display_metadata.dart';
 
 /// A [stateful] widget for viewing an externally owned note.
 ///

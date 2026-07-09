@@ -32,19 +32,19 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart' show SolidInviteOthersConfig;
 
-const String applicationRepo = 'https://github.com/anusii/notepod';
+const String applicationRepo = 'https://github.com/anusii/rrm_alpha';
 const String appChangeLog =
-    'https://github.com/anusii/notepod/blob/dev/CHANGELOG.md';
+    'https://github.com/anusii/rrm_alpha/blob/dev/CHANGELOG.md';
 const String defWebID = 'https://pods.solidcommunity.au';
 const String topBarTitle = 'Note Pod';
 const String shortTitle = 'Note Taker';
-const String longTitle = 'NotePod\nPrivate and Shareable Notes';
+const String longTitle = 'rrm_alpha\nPrivate and Shareable Notes';
 
 const String appOwner = '''© 2025 - 2026 Software Innovation Institute''';
 
 const String aboutText = '''
 
-          NotePod is a private and shareable notes manager that stores your
+          rrm_alpha is a private and shareable notes manager that stores your
           notes encrypted in your personal Solid Pod, so your data stays
           under your control. Your Solid Pod can be hosted on any Solid
           server and being encrypted it is protected against casual access by
@@ -62,17 +62,17 @@ const String aboutText = '''
           - Theme switching (light / dark / system)
 
           For more information, visit the
-          [NotePod](https://github.com/anusii/notepod) GitHub repository
+          [rrm_alpha](https://github.com/anusii/rrm_alpha) GitHub repository
           and our [Australian Solid Community](https://solidcommunity.au)
           web site.
 
           ''';
 
-const String appDir = 'notepod';
+const String appDir = 'rrm_alpha';
 
 const AssetImage backgroundImg =
-    AssetImage('assets/images/notepod-background.jpg');
-const AssetImage logoImg = AssetImage('assets/images/notepod.png');
+    AssetImage('assets/images/rrm_alpha-background.jpg');
+const AssetImage logoImg = AssetImage('assets/images/rrm_alpha.png');
 
 //const kDefaultPadding = 20.0;
 //const double buttonBorderRadius = 5;
@@ -208,18 +208,18 @@ const EdgeInsets metadataPadding = EdgeInsets.fromLTRB(15, 5, 10, 0);
 ShapeDecoration buttonShapeList =
     const ShapeDecoration(color: Colors.grey, shape: CircleBorder());
 
-/// Public URL where NotePod is hosted. Used by the Invite Others
+/// Public URL where rrm_alpha is hosted. Used by the Invite Others
 /// feature to send a working link to the recipient.
 
-const String appUrl = 'https://notepod.solidcommunity.au';
+const String appUrl = 'https://rrm_alpha.solidcommunity.au';
 
 /// Application-wide Invite Others configuration shared by the
 /// AppBar share button, the App Info dialogue, and the grant
 /// permissions fallback so that users can invite others to set up
-/// their POD and try NotePod.
+/// their POD and try rrm_alpha.
 
 const SolidInviteOthersConfig inviteOthersConfig = SolidInviteOthersConfig(
-  applicationName: 'NotePod',
+  applicationName: 'rrm_alpha',
   appUrl: appUrl,
   appDescription: 'read, write, and share encrypted notes stored on your '
       'own personal online data store',
@@ -229,12 +229,12 @@ You might like to try the {appName} app, available online here:
 {appUrl}
 
 Signing into {appName} will set up your data vault so you can create and share private, encrypted notes with other Solid users.''',
-  subject: 'Try the NotePod app on your Solid POD',
+  subject: 'Try the rrm_alpha app on your Solid POD',
   tooltip: '''
 
   **Invite Others**
 
-  Tap to invite someone else to try NotePod. You can copy the
+  Tap to invite someone else to try rrm_alpha. You can copy the
   invitation to the clipboard or share it through any messaging app
   installed on your device.
 

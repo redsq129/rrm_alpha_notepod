@@ -27,10 +27,10 @@ library;
 
 import 'package:flutter/foundation.dart' show debugPrint;
 
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/models/note_content.dart';
-import 'package:notepod/utils/encryption.dart';
-import 'package:notepod/utils/turtle/parsing_utils.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/note_content.dart';
+import 'package:rrm_alpha/utils/encryption.dart';
+import 'package:rrm_alpha/utils/turtle/parsing_utils.dart';
 
 /// Pattern that matches the canonical base64 alphabet (with optional
 /// `=` padding). Used as a cheap signal that a `noteContent` literal is
@@ -63,7 +63,7 @@ String _decryptIfCiphertext(String value, String? createdDateTime) {
   }
 }
 
-/// Handle Notepod to/from Turtle serialization operations.
+/// Handle rrm_alpha to/from Turtle serialization operations.
 
 class TurtleSerializer {
   /// Parses a note from Turtle content.

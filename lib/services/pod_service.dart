@@ -29,10 +29,10 @@ import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:notepod/constants/paths.dart';
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/services/operations.dart';
+import 'package:rrm_alpha/constants/paths.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/services/operations.dart';
 
 /// Helper class for books file operations.
 

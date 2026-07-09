@@ -8,7 +8,7 @@
     - [Grant read access](#grant-read-access)
   - [Grant read and write access](#grant-read-and-write-access)
 
-This exercise will show you how to share a note in the Notepod app.
+This exercise will show you how to share a note in the rrm_alpha app.
 
 In Solid, sharing a note to another person is the act of editing the access control list of a resource which you control to make that resource accessible to the other person's webID. It does not show whether they have accessed the resource, it only makes the resource accessible to the recipient via the resource URI.
 
@@ -24,7 +24,7 @@ In the menu, select `My Notes` to open the list of your notes, and click on the 
 
 From within the note, click the `Share` button.
 
-![Click share](../assets/images/notepod_click_share.png)
+![Click share](../assets/images/rrm_alpha_click_share.png)
 
 This will show the list of access permissions for the note file. The table below shows all the pods that have access to the note, including your pod, and the access level that recipient PODs have been granted.
 
@@ -37,7 +37,7 @@ Definitions for different permission levels:
 
 A newly created note which you have not yet shared will have the file access permissions similar to below with yourself as POD owner with `read`, `write ` and `control` access.
 
-![Click share](../assets/images/notepod_sharing_view.png)
+![Click share](../assets/images/rrm_alpha_sharing_view.png)
 
 
 ## Share a Note<a name="share"></a>
@@ -77,7 +77,7 @@ You have now granted the recipient access to your note file!
 
 **The next actions are done by the recipient of your note**
 
-Now ask the recipient to login to their Notepod app, and select `Shared Notes` from the menu.
+Now ask the recipient to login to their rrm_alpha app, and select `Shared Notes` from the menu.
 
 They should see your note in their shared notes list.
 
@@ -105,7 +105,7 @@ Submit by pressing `Grant Permission` to **confirm** that you are granting the r
 
 **The next actions are done by the recipient of your note**
 
-Now ask the recipient to login to their Notepod app, and select the `Shared Notes` list from the menu.
+Now ask the recipient to login to their rrm_alpha app, and select the `Shared Notes` list from the menu.
 
 From their shared notes list, ask them to open the note.
 

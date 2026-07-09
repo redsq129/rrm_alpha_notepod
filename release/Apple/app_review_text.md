@@ -10,17 +10,17 @@ Note: every build must have a unique build version - bump version between upload
 
 *This is promo text that appears above the app description in the App Store to use for short promotional annoucements, and which doesnt not require app review when changed.*
 
-Notepod - a privacy respecting app for note taking, based on the Solid specification giving you sovereignty - ownership and control - of your data.
+rrm_alpha - a privacy respecting app for note taking, based on the Solid specification giving you sovereignty - ownership and control - of your data.
 
 ## Description
 
 *A description of your app detailing features and functionality.*
 
-Notepod - Private and Shareable Notes
+rrm_alpha - Private and Shareable Notes
 
-Notepod is an app built with the Solid (Social Linked Data) specification where you can store your notes data in your own personal data vault. Using Notepod you can read, write, and share encrypted notes stored on your personal data vault (also called a Personal Online Datastore or Pod) hosted on a Solid Server.
+rrm_alpha is an app built with the Solid (Social Linked Data) specification where you can store your notes data in your own personal data vault. Using rrm_alpha you can read, write, and share encrypted notes stored on your personal data vault (also called a Personal Online Datastore or Pod) hosted on a Solid Server.
 
-Unlike conventional apps, you own your data created in this app. We, the developers of the Notepod app, own only the app. We do not own the notes data that you create and save with this app. Notepod helps you set up your personal data vault, by creating an account on a Solid server host that stores personal data vaults.
+Unlike conventional apps, you own your data created in this app. We, the developers of the rrm_alpha app, own only the app. We do not own the notes data that you create and save with this app. rrm_alpha helps you set up your personal data vault, by creating an account on a Solid server host that stores personal data vaults.
 
 Advantages of Solid based apps:
 
@@ -31,7 +31,7 @@ Advantages of Solid based apps:
 - You can access your data vault to read and write files to it from any app that uses the Solid specification to talk to your data vault.
 - You own and control your data vault files, and can move your data vault to another Solid server host.
 
-Features of Notepod:
+Features of rrm_alpha:
 
 - Create new notes.
 - Edit an existing note.

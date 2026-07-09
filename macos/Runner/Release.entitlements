@@ -12,7 +12,7 @@
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.togaware.notepod</string>
+		<string>$(AppIdentifierPrefix)com.togaware.rrm_alpha</string>
 	</array>
 </dict>
 </plist>

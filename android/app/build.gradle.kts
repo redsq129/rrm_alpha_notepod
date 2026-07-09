@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.togaware.notepod"
+    namespace = "com.togaware.rrm_alpha"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.togaware.notepod"
+        applicationId = "com.togaware.rrm_alpha"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -24,7 +24,7 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         manifestPlaceholders.putAll(mapOf(
-        "appAuthRedirectScheme" to "com.togaware.notepod"
+        "appAuthRedirectScheme" to "com.togaware.rrm_alpha"
     ))
     }
 

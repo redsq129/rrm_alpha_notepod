@@ -37,13 +37,13 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:markdown_tooltip/markdown_tooltip.dart';
 
-import 'package:notepod/models/notes_call_result.dart';
-import 'package:notepod/models/own_note.dart';
-import 'package:notepod/notes/import_export_widgets.dart';
-import 'package:notepod/notes/notes_io.dart';
-import 'package:notepod/notes/notes_markdown_pdf.dart';
-import 'package:notepod/services/note_service.dart';
-import 'package:notepod/widgets/err_card.dart';
+import 'package:rrm_alpha/models/notes_call_result.dart';
+import 'package:rrm_alpha/models/own_note.dart';
+import 'package:rrm_alpha/notes/import_export_widgets.dart';
+import 'package:rrm_alpha/notes/notes_io.dart';
+import 'package:rrm_alpha/notes/notes_markdown_pdf.dart';
+import 'package:rrm_alpha/services/note_service.dart';
+import 'package:rrm_alpha/widgets/err_card.dart';
 
 // ── Main screen ───────────────────────────────────────────────────────────────
 
@@ -106,7 +106,7 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
     });
     try {
       final bytes = utf8.encode(notesToBackupJson(_notes));
-      final fileName = 'notepod_backup_${_ts()}.json';
+      final fileName = 'rrm_alpha_backup_${_ts()}.json';
 
       if (kIsWeb) {
         _setBackupMsg('File export is not supported on web.', error: true);
@@ -139,7 +139,7 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
     });
     try {
       final result = await FilePicker.pickFiles(
-        dialogTitle: 'Select NotePod JSON backup',
+        dialogTitle: 'Select rrm_alpha JSON backup',
         type: FileType.any,
         withData: true,
       );
@@ -181,7 +181,7 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
     });
     try {
       final bytes = utf8.encode(notesToMarkdown(_notes));
-      final fileName = 'notepod_notes_${_ts()}.md';
+      final fileName = 'rrm_alpha_notes_${_ts()}.md';
 
       if (kIsWeb) {
         _setExportMsg('File export is not supported on web.', error: true);
@@ -214,7 +214,7 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
     });
     try {
       final pdfBytes = await buildNotesPdf(_notes);
-      final pdfName = 'notepod_notes_${_ts()}.pdf';
+      final pdfName = 'rrm_alpha_notes_${_ts()}.pdf';
       if (!mounted) return;
       await showNotesPdfPreview(
         context: context,
@@ -285,7 +285,7 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
                 children: [
                   MarkdownTooltip(
                     message: '**Export Backup**\n\n'
-                        'Save all $count note$s to a NotePod JSON backup file '
+                        'Save all $count note$s to a rrm_alpha JSON backup file '
                         'on this device. Keep it somewhere safe so you can '
                         'restore everything later.',
                     child: FilledButton.icon(
@@ -297,7 +297,7 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
                   const SizedBox(width: 12),
                   MarkdownTooltip(
                     message: '**Import Backup**\n\n'
-                        'Restore notes from a previously saved NotePod JSON '
+                        'Restore notes from a previously saved rrm_alpha JSON '
                         'backup file.',
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.upload),

@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/colours.dart';
+import 'package:rrm_alpha/constants/colours.dart';
 
 /// Elevated button widget with text label for using in note views.
 ///

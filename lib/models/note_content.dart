@@ -27,7 +27,7 @@ library;
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:notepod/constants/turtle_structures.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
 
 /// Base data model for the nested note within a note object
 

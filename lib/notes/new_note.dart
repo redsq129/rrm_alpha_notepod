@@ -34,10 +34,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/notes/list_my_notes_screen.dart';
-import 'package:notepod/widgets/note_edit_scroll_view.dart';
-import 'package:notepod/widgets/note_save_button.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
+import 'package:rrm_alpha/widgets/note_edit_scroll_view.dart';
+import 'package:rrm_alpha/widgets/note_save_button.dart';
 
 /// A [Stateful] widget for creating a new note.
 ///
@@ -56,15 +56,16 @@ import 'package:notepod/widgets/note_save_button.dart';
 
 /// Allowed values for `customer.relationship_status`, taken directly from
 /// the "y" schema's enum for that field.
+/// 
+/// Validation Criteria
 
-const List<String> relationshipStatusOptions = [
-  'single',
-  'married',
-  'divorced',
-  'widowed',
-  'partnered',
-  'other',
-];
+const List<String> relationshipStatusOptions = ['Single', 'Married', 'Divorced', 'Widowed', 'Partnered', 'Other'];
+const List<String> currencyNames = ['United States Dollar', 'Euro', 'British Pound', 'Japanese Yen', 'Australian Dollar', 'Canadian Dollar', 'Swiss Franc', 'Chinese Yuan', 'Swedish Krona', 'New Zealand Dollar'];
+const List<String> currencyCodes = ['USD', 'EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'CNY', 'SEK', 'NZD'];
+
+RegExp emailRegex = RegExp(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}',);
+RegExp phoneRegex = RegExp(r'^\+?61\s?\d{1,4}\s?\d{3}\s?\d{3}$|^04\d{2}\s?\d{3}\s?\d{3}$',);
+RegExp urlRegex   = RegExp(r'^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(/.*)?$', caseSensitive: false,);
 
 /// Date display/entry format for the applicant's jurisdiction (Australia):
 /// day, then month, then year, with no time component - dates in "y" never
@@ -76,31 +77,6 @@ final DateFormat auDateFormat = DateFormat('dd MMMM yyyy');
 /// date-only, ISO 8601 (`yyyy-MM-dd`), with no time component.
 
 final DateFormat isoDateOnlyFormat = DateFormat('yyyy-MM-dd');
-
-class StyledTextEditingController extends TextEditingController {
-    static final RegExp emailRegex = RegExp(
-  r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}',
-);
-    
-    // Define the patterns to style
-    static const List<String> patterns = [
-        r'{{\s*\w+\s*}}', // Template variables
-        r'#\w+',          // Hashtags
-        r'https?://\S+', // URL
-   ];
-
-    @override
-    TextSpan buildTextSpan({
-      required BuildContext context,
-      TextStyle? style,
-      required bool withComposing,
-    }) {
-      return TextSpan(
-        style: style,
-        text: text,
-      );
-    }
-}
 
 class NewNote extends StatefulWidget {
   final SolidScaffoldController scaffoldController;
@@ -126,7 +102,7 @@ class NewNoteState extends State<NewNote> {
   final GlobalKey<FormBuilderState> _appFormKey =
       GlobalKey<FormBuilderState>();
 
-  StyledTextEditingController? _textController;
+  TextEditingController? _textController;
 
   /// Scroll controller for single child scroll view.
   late final ScrollController _scrollController;
@@ -165,7 +141,7 @@ class NewNoteState extends State<NewNote> {
     // completing the Account Application form below, which writes the
     // completed "z" JSON record into the controller. Direct user typing
     // into the content field is blocked (see _onContentChanged).
-    _textController = StyledTextEditingController();
+    _textController = TextEditingController();
     _scrollController = ScrollController();
     _scaffoldController = widget.scaffoldController;
 
@@ -186,7 +162,7 @@ class NewNoteState extends State<NewNote> {
 
   @override
   void dispose() {
-    _textController!.dispose(); // Dispose the StyledTextEditingController
+    _textController!.dispose(); // Dispose the TextEditingController
     _scrollController.dispose(); // Dispose the ScrollController
     _focusTitle.dispose(); // Dispose the title focus node
     _focusContent.dispose(); // Dispose the content focus node
@@ -224,6 +200,76 @@ class NewNoteState extends State<NewNote> {
       data = json;
     });
   }
+String? _requiredValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'This field is a required field and cannot be left blank';
+    }
+    return null;
+  }
+
+  String? _requiredDateValidator(DateTime? value) {
+    if (value == null || value.toString().trim().isEmpty) {
+      return 'This date is a required date and cannot be left blank';
+    }
+    return null;
+  }
+  // Bank Account ID handling - Bank Sort Code or Bank State Branch as per Australia
+
+  static final RegExp _bankIdBSB = RegExp(r'^\d{2}-\d{2}-\d{2}$');
+  static final RegExp _bankIdNum = RegExp(r'^\d{6}$');
+  
+  /// `customer.bank_id` must be in the form nn-nn-nn (two digits, dash, two
+  /// digits, dash, two digits).
+  /// 
+    String? _cleanbankId(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return null;
+    }
+    if (_bankIdBSB.hasMatch(value)) {
+      return value;
+    }
+
+    String? toTest = value.replaceAll(RegExp(r'[^0-9]'),''); // '23'
+
+    if (_bankIdNum.hasMatch(toTest)) {
+      // Convert 6-digit number to nn-nn-nn format
+      return '${toTest.substring(0, 2)}-${toTest.substring(2, 4)}-${toTest.substring(4, 6)}';
+    } 
+    return null; // Invalid format
+ }
+
+  String? _bankIdValidator(String? value) {
+   
+    final required = _requiredValidator(value);
+   
+    if (required != null) return required;
+    //
+    // Validate the bank ID format (nn-nn-nn).
+    //
+    if (_bankIdBSB.hasMatch(value ?? '') == false) {
+      return 'Bank Identification code must be in the form nn-nn-nn (BSB), e.g. 12-34-56';
+    }
+    return null;
+  }
+
+
+  /// DoB for dependants handling; clean-up and validation
+  /// 
+  /// Returns the cleaned-up (trimmed, consistently comma-space-joined)
+  /// dependant DoB string for `customer.dob_of_dependants`, or `null` if
+  /// none were entered. This is distinct from [_parseDependantDobs],
+  /// which is a validator and returns `null` to mean "valid" rather than
+  /// "empty" - it must not be used to derive the saved value.
+  String? _cleanDependantDobs(String? value) {
+    final dobList = value
+            ?.split(',')
+            .map((s) => s.trim())
+            .where((s) => s.isNotEmpty)
+            .toList() ??
+        [];
+    if (dobList.isEmpty) return null;
+    return dobList.join(', ');
+  }
 
   /// Parses a comma-separated string of dependant dates of birth into a
  
@@ -243,11 +289,9 @@ class NewNoteState extends State<NewNote> {
       }
       return null;
     }
-
     if (dobList.length != dependants) {
       return 'Number of Dates of Birth (${dobList.length}) does not match number of dependants ($dependants)';
     }
-
     for (String date in dobList) {
       try {
         isoDateOnlyFormat.parseStrict(date);
@@ -255,68 +299,27 @@ class NewNoteState extends State<NewNote> {
         return 'Please enter $date in the valid date format yyyy-MM-dd.';
       }
     }
-    value = dobList.join(', '); // Clean up the value to have consistent formatting
-
     return null;
   }
 
-  /// Returns the cleaned-up (trimmed, consistently comma-space-joined)
-  /// dependant DoB string for `customer.dob_of_dependants`, or `null` if
-  /// none were entered. This is distinct from [_parseDependantDobs],
-  /// which is a validator and returns `null` to mean "valid" rather than
-  /// "empty" - it must not be used to derive the saved value.
-  String? _cleanDependantDobs(String? value) {
-    final dobList = value
-            ?.split(',')
-            .map((s) => s.trim())
-            .where((s) => s.isNotEmpty)
-            .toList() ??
-        [];
-    if (dobList.isEmpty) return null;
-    return dobList.join(', ');
-  }
-
-  String? _requiredValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'This field is a required field and cannot be left blank';
-    }
-    return null;
-  }
-
-  final _emailValidator = FormBuilderValidators.compose<String>([
-    FormBuilderValidators.required(),
-    FormBuilderValidators.email(),
+    final _emailValidator = FormBuilderValidators.compose<String>([
+    FormBuilderValidators.email(checkNullOrEmpty: true, regex: emailRegex),
   ]);
 
   /// Required + valid mobile phone number, for
   /// `customer.mobile_phone_number`.
 
   final _phoneValidator = FormBuilderValidators.compose<String>([
-    FormBuilderValidators.required(),
-    FormBuilderValidators.phoneNumber(),
+    FormBuilderValidators.phoneNumber(checkNullOrEmpty: true, errorText: 'Please enter a valid mobile phone number of the form +61 4xx xxx xxx or 04xx xxx xxx', regex: phoneRegex),
   ]);
 
   /// Required + valid URL, per "y"'s `format: "uri"` fields (`user.provider`,
   /// `customer.face_image.url`).
 
   final _urlValidator = FormBuilderValidators.compose<String>([
-    FormBuilderValidators.required(),
-    FormBuilderValidators.url(),
+    FormBuilderValidators.url(checkNullOrEmpty: true, regex: urlRegex),
   ]);
 
-  /// `customer.bank_id` must be in the form nn-nn-nn (two digits, dash, two
-  /// digits, dash, two digits).
-
-  static final RegExp _bankIdPattern = RegExp(r'^\d{2}-\d{2}-\d{2}$');
-
-  String? _bankIdValidator(String? value) {
-    final required = _requiredValidator(value);
-    if (required != null) return required;
-    if (!_bankIdPattern.hasMatch(value!)) {
-      return 'Bank Identification code must be in the form nn-nn-nn (BSB), e.g. 12-34-56';
-    }
-    return null;
-  }
 
   /// Formats a picked [DateTime] as a date-only ISO 8601 string
   /// (`yyyy-MM-dd`) for "z" - "y" dates never need a time component.
@@ -327,8 +330,20 @@ class NewNoteState extends State<NewNote> {
     }
     return null;
   }
+  String? _cleancurrencyCodeId(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return null;
+    }
+    // is this a valid Currency Name - should be as taken from a drop down
 
-  /// Whether the note has unsaved changes worth enabling Save for. Since
+    if (currencyNames.contains(value)) {
+      final index = currencyNames.indexOf(value);
+      return currencyCodes[index];
+    }
+    return null;
+  }
+
+    /// Whether the note has unsaved changes worth enabling Save for. Since
   /// [NewNote] always creates a brand new note, this mirrors the
   /// "not existing" branch of `NoteEditScrollView`'s own `_hasChanges`:
   /// enabled once a title or some content has been entered.
@@ -342,7 +357,7 @@ class NewNoteState extends State<NewNote> {
   }
 
   /// Opens the structured data-entry form for the Account Application
-  /// record described by "y" (the Proto PI JSON schema).
+  /// record described by "y" (the Prototype PI JSON schema).
 
   Future<void> _showApplicationForm(BuildContext context) async {
     await showModalBottomSheet<void>(
@@ -363,7 +378,7 @@ class NewNoteState extends State<NewNote> {
                   controller: scrollController,
                   children: [
                     Text(
-                      'Account Application (against Proto PI JSON schema)',
+                      'Account Application (against Prototype PI JSON schema)',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 12),
@@ -436,7 +451,7 @@ class NewNoteState extends State<NewNote> {
                       name: 'bank_id',
                       decoration: const InputDecoration(
                         labelText: 'Bank ID',
-                        hintText: 'nn-nn-nn',
+                        hintText: 'A valid bank identifier is of the form nn-nn-nn e.g. bank sort code or bank state branch in Australia',
                       ),
                       validator: _bankIdValidator,
                     ),
@@ -496,8 +511,7 @@ class NewNoteState extends State<NewNote> {
                       format: auDateFormat,
                       decoration:
                           const InputDecoration(labelText: 'Face Image Date'),
-                      validator: (v) =>
-                          v == null ? 'This field is required' : null,
+                      validator: _requiredDateValidator,
                     ),
 
                     const SizedBox(height: 12),
@@ -508,8 +522,7 @@ class NewNoteState extends State<NewNote> {
                       format: auDateFormat,
                       decoration:
                           const InputDecoration(labelText: 'Date of Birth'),
-                      validator: (v) =>
-                          v == null ? 'This field is required' : null,
+                      validator: _requiredDateValidator,
                     ),
                     FormBuilderDropdown<String>(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -520,14 +533,13 @@ class NewNoteState extends State<NewNote> {
                           .map((s) =>
                               DropdownMenuItem(value: s, child: Text(s)),)
                           .toList(),
-                      validator: (v) =>
-                          v == null ? 'This field is required' : null,
+                      validator: _requiredValidator,
                     ),
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'dependants',
                       decoration:
-                          const InputDecoration(labelText: 'Dependants'),
+                          const InputDecoration(labelText: 'Number of Dependants'),
                       keyboardType: TextInputType.number,
                       validator: _requiredValidator,
                     ),
@@ -561,12 +573,16 @@ class NewNoteState extends State<NewNote> {
                     const SizedBox(height: 12),
                     Text('Credit Limit',
                         style: Theme.of(context).textTheme.titleSmall,),
-                    FormBuilderTextField(
+                    FormBuilderDropdown<String>(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       name: 'credit_limit_currency',
                       decoration: const InputDecoration(
-                        labelText: 'Currency (As per ISO 4217, e.g. "GBP")',
+                        labelText: 'Currency for credit limit definition',
                       ),
+                      items: currencyNames
+                          .map((s) =>
+                              DropdownMenuItem(value: s, child: Text(s)),)
+                          .toList(),
                       validator: _requiredValidator,
                     ),
                     FormBuilderTextField(
@@ -604,8 +620,7 @@ class NewNoteState extends State<NewNote> {
                       format: auDateFormat,
                       decoration:
                           const InputDecoration(labelText: 'Last OK Date'),
-                      validator: (v) =>
-                          v == null ? 'This field is required' : null,
+                      validator: _requiredDateValidator,
                     ),
                     FormBuilderTextField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -679,7 +694,7 @@ class NewNoteState extends State<NewNote> {
         'username': v['username'],
       },
       'customer': {
-        'bank_id': v['bank_id'],
+        'bank_id': _cleanbankId(v['bank_id']),
         'customer_id': v['customer_id'],
         'customer_number': v['customer_number'],
         'legal_name': v['legal_name'],
@@ -698,7 +713,7 @@ class NewNoteState extends State<NewNote> {
           'source': v['credit_rating_source'],
         },
         'credit_limit': {
-          'currency': v['credit_limit_currency'],
+          'currency': _cleancurrencyCodeId(v['credit_limit_currency']),
           'amount': v['credit_limit_amount'],
         },
         'highest_education_attained': v['highest_education_attained'],

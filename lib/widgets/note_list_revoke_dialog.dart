@@ -28,12 +28,12 @@ import 'package:flutter/material.dart';
 
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/ui.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/utils/get_id.dart';
-import 'package:notepod/widgets/note_back_button.dart';
-import 'package:notepod/widgets/note_list_revoke_button.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/ui.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/utils/get_id.dart';
+import 'package:rrm_alpha/widgets/note_back_button.dart';
+import 'package:rrm_alpha/widgets/note_list_revoke_button.dart';
 
 /// A page listing inaccessible external notes with a button to update the
 /// permission log with a 'revoke' record for each.

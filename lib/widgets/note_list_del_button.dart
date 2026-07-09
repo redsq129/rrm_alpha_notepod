@@ -29,13 +29,13 @@ import 'package:flutter/material.dart';
 import 'package:markdown_tooltip/markdown_tooltip.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/common/rest_api/file_helper.dart';
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/colours.dart';
-import 'package:notepod/constants/ui.dart';
-import 'package:notepod/models/selected_note.dart';
-import 'package:notepod/widgets/err_card.dart';
-import 'package:notepod/widgets/loading_animation.dart' as loading;
+import 'package:rrm_alpha/common/rest_api/file_helper.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/colours.dart';
+import 'package:rrm_alpha/constants/ui.dart';
+import 'package:rrm_alpha/models/selected_note.dart';
+import 'package:rrm_alpha/widgets/err_card.dart';
+import 'package:rrm_alpha/widgets/loading_animation.dart' as loading;
 
 /// A delete button widget for deleting a list of notes.
 ///

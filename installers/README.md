@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD013 -->
 
-# NotePod Installers
+# rrm_alpha Installers
 
 Flutter supports multiple platform targets. Flutter based apps can run
 native on Android, iOS, Linux, MacOS, and Windows, as well as directly
@@ -9,35 +9,35 @@ identical across all platforms so the experience across different
 platforms will be very similar.
 
 Visit the
-[CHANGELOG](https://github.com/anusii/notepod/blob/dev/CHANGELOG.md)
+[CHANGELOG](https://github.com/anusii/rrm_alpha/blob/dev/CHANGELOG.md)
 for the latest updates.
 
-Run the app online: [**web**](https://notepod.solidcommunity.au).
+Run the app online: [**web**](https://rrm_alpha.solidcommunity.au).
 
 Download the latest version:
 **GNU/Linux**
-[deb](https://solidcommunity.au/installers/notepod_amd64.deb) or
-[zip](https://solidcommunity.au/installers/notepod-linux.zip);
+[deb](https://solidcommunity.au/installers/rrm_alpha_amd64.deb) or
+[zip](https://solidcommunity.au/installers/rrm_alpha-linux.zip);
 **Android**
-[apk](https://solidcommunity.au/installers/notepod.apk);
+[apk](https://solidcommunity.au/installers/rrm_alpha.apk);
 **macOS**
-[dmg](https://solidcommunity.au/installers/notepod-macos-unsigned.dmg);
+[dmg](https://solidcommunity.au/installers/rrm_alpha-macos-unsigned.dmg);
 **Windows**
-[zip](https://solidcommunity.au/installers/notepod-windows.zip) or
-[inno](https://solidcommunity.au/installers/notepod-windows-inno.exe).
+[zip](https://solidcommunity.au/installers/rrm_alpha-windows.zip) or
+[inno](https://solidcommunity.au/installers/rrm_alpha-windows-inno.exe).
 
 ## Prerequisite
 
 There are no specific prerequisites for installing and running
-Notepod.
+rrm_alpha.
 
 ## Android
 
 You can side load the latest version of the app by downloading the
-[installer](https://solidcommunity.au/installers/notepod.apk) through
+[installer](https://solidcommunity.au/installers/rrm_alpha.apk) through
 your Android device's browser. This will download the app to your
 Android device. Then visit the Downloads folder where you can click on
-the `notepod.apk` file. Your browser will ask if you are okay with
+the `rrm_alpha.apk` file. Your browser will ask if you are okay with
 installing the app locally.
 
 ## Linux
@@ -47,20 +47,20 @@ installing the app locally.
 Download and install the deb package:
 
 ```bash
-wget https://solidcommunity.au/installers/notepod_amd64.dev -O notepod_amd64.deb
-sudo dpkg --install notepod_amd64.deb
+wget https://solidcommunity.au/installers/rrm_alpha_amd64.dev -O rrm_alpha_amd64.deb
+sudo dpkg --install rrm_alpha_amd64.deb
 ```
 
 ### Zip Install
 
-Download [notepod-linux.zip](https://solidcommunity.au/installers/notepod-linux.zip)
+Download [rrm_alpha-linux.zip](https://solidcommunity.au/installers/rrm_alpha-linux.zip)
 
 To try it out:
 
 ```bash
-wget https://solidcommunity.au/installers/notepod-linux.zip -O notepod-linux.zip
-unzip notepod-linux.zip -d notepod
-./notepod/notepod
+wget https://solidcommunity.au/installers/rrm_alpha-linux.zip -O rrm_alpha-linux.zip
+unzip rrm_alpha-linux.zip -d rrm_alpha
+./rrm_alpha/rrm_alpha
 ```
 
 To install for the local user and to make it known to GNOME and KDE,
@@ -68,35 +68,35 @@ with a desktop icon for their desktop, begin by downloading the **zip** and
 installing that into a local folder:
 
 ```bash
-unzip notepod-linux.zip -d ${HOME}/.local/share/notepod
+unzip rrm_alpha-linux.zip -d ${HOME}/.local/share/rrm_alpha
 ```
 
 Then set up your local installation (only required once):
 
 ```bash
-ln -s ${HOME}/.local/share/notepod/notepod ${HOME}/.local/bin/
-wget https://raw.githubusercontent.com/anusii/notepod/dev/installers/app.desktop -O ${HOME}/.local/share/applications/notepod.desktop
-sed -i "s/USER/$(whoami)/g" ${HOME}/.local/share/applications/notepod.desktop
+ln -s ${HOME}/.local/share/rrm_alpha/rrm_alpha ${HOME}/.local/bin/
+wget https://raw.githubusercontent.com/anusii/rrm_alpha/dev/installers/app.desktop -O ${HOME}/.local/share/applications/rrm_alpha.desktop
+sed -i "s/USER/$(whoami)/g" ${HOME}/.local/share/applications/rrm_alpha.desktop
 mkdir -p ${HOME}/.local/share/icons/hicolor/256x256/apps/
-wget https://github.com/anusii/notepod/raw/dev/installers/app.png -O ${HOME}/.local/share/icons/hicolor/256x256/apps/notepod.png
+wget https://github.com/anusii/rrm_alpha/raw/dev/installers/app.png -O ${HOME}/.local/share/icons/hicolor/256x256/apps/rrm_alpha.png
 ```
 
 To install for any user on the computer:
 
 ```bash
-sudo unzip notepod-linux.zip -d /opt/notepod
-sudo ln -s /opt/notepod/notepod /usr/local/bin/
-wget https://raw.githubusercontent.com/anusii/notepod/dev/installers/app.desktop -O ${HOME}/usr/local/share/applications/notepod.desktop
-wget https://github.com/anusii/notepod/raw/dev/installers/app.png -O ${HOME}/use/local/share/icons/notepod.png
+sudo unzip rrm_alpha-linux.zip -d /opt/rrm_alpha
+sudo ln -s /opt/rrm_alpha/rrm_alpha /usr/local/bin/
+wget https://raw.githubusercontent.com/anusii/rrm_alpha/dev/installers/app.desktop -O ${HOME}/usr/local/share/applications/rrm_alpha.desktop
+wget https://github.com/anusii/rrm_alpha/raw/dev/installers/app.png -O ${HOME}/use/local/share/icons/rrm_alpha.png
 ```
 
 Once installed you can run the app from the GNOME desktop through
-Alt-F2 and type `notepod` then Enter.
+Alt-F2 and type `rrm_alpha` then Enter.
 
 ## MacOS
 
 The zip file
-[notepod-macos-unsigned.zip](https://solidcommunity.au/installers/notepod-macos-unsigned.zip)
+[rrm_alpha-macos-unsigned.zip](https://solidcommunity.au/installers/rrm_alpha-macos-unsigned.zip)
 can be installed on MacOS. Download the file and open it on your
 Mac. Then, holding the Control key click on the app icon to display a
 menu. Choose `Open`. Then accept the warning to then run the app. The
@@ -105,8 +105,8 @@ app should then run without the warning next time.
 ## Web -- No Installation Required
 
 No installer is required for a browser based experience of
-Notepod. Simply visit
-[https://notepod.solidcommunity.au](https://notepod.solidcommunity.au).
+rrm_alpha. Simply visit
+[https://rrm_alpha.solidcommunity.au](https://rrm_alpha.solidcommunity.au).
 
 Also, your Web browser will provide an option in its menus to install
 the app locally, which can add an icon to your home screen to start
@@ -115,5 +115,5 @@ the web-based app directly.
 ## Windows Installer
 
 Download and run the self extracting archive
-[notepod-windows-inno.exe](https://solidcommunity.au/installers/notepod-windows-inno.exe)
+[rrm_alpha-windows-inno.exe](https://solidcommunity.au/installers/rrm_alpha-windows-inno.exe)
 to self install the app on Windows.

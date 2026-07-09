@@ -27,12 +27,12 @@ import 'package:flutter/material.dart';
 import 'package:markdown_tooltip/markdown_tooltip.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/models/note.dart';
-import 'package:notepod/notes/list_notes_screen.dart';
-import 'package:notepod/notes/share_note.dart';
-import 'package:notepod/utils/get_id.dart';
-import 'package:notepod/utils/misc.dart';
-import 'package:notepod/widgets/simple_action_button.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/notes/list_notes_screen.dart';
+import 'package:rrm_alpha/notes/share_note.dart';
+import 'package:rrm_alpha/utils/get_id.dart';
+import 'package:rrm_alpha/utils/misc.dart';
+import 'package:rrm_alpha/widgets/simple_action_button.dart';
 
 /// A [stateless] widget to show trailing buttons in a note
 /// list item.

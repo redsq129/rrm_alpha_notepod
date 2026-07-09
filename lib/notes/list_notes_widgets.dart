@@ -13,15 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:markdown_tooltip/markdown_tooltip.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/models/selected_note.dart';
-import 'package:notepod/notes/list_notes_screen.dart';
-import 'package:notepod/notes/non_readable_note.dart';
-import 'package:notepod/notes/view_note.dart';
-import 'package:notepod/widgets/note_item_subtitle.dart';
-import 'package:notepod/widgets/note_item_trailing_buttons.dart';
-import 'package:notepod/widgets/note_list_del_button.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/models/selected_note.dart';
+import 'package:rrm_alpha/notes/list_notes_screen.dart';
+import 'package:rrm_alpha/notes/non_readable_note.dart';
+import 'package:rrm_alpha/notes/view_note.dart';
+import 'package:rrm_alpha/widgets/note_item_subtitle.dart';
+import 'package:rrm_alpha/widgets/note_item_trailing_buttons.dart';
+import 'package:rrm_alpha/widgets/note_list_del_button.dart';
 
 // ── NoteListCard ─────────────────────────────────────────────────────────────
 

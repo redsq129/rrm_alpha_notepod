@@ -1,4 +1,4 @@
-/// Shared widgets for the NotePod Backup (import/export) screen.
+/// Shared widgets for the rrm_alpha Backup (import/export) screen.
 ///
 // Time-stamp: <2026-06-12>
 ///

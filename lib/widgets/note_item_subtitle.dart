@@ -24,8 +24,8 @@ library;
 
 import 'package:flutter/material.dart';
 
-import 'package:notepod/models/note.dart';
-import 'package:notepod/utils/misc.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/utils/misc.dart';
 
 /// A [stateless] widget to show subtitle of a note list item.
 /// Shows the last modified date, or nothing if unavailable.

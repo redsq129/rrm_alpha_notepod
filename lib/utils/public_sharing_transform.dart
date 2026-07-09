@@ -1,4 +1,4 @@
-/// Transformers that strip / restore NotePod's per-note inner content
+/// Transformers that strip / restore rrm_alpha's per-note inner content
 /// encryption when a note is shared with the Public or Authenticated
 /// User classes.
 ///
@@ -30,27 +30,27 @@ import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:solidpod/solidpod.dart'
     show PublicSharingHooks, turtleToTripleMap;
 
-import 'package:notepod/constants/turtle_structures.dart'
-    show createdDateTimePred, noteContentPred, notepodTerms;
-import 'package:notepod/utils/encryption.dart' show decryptVal, encryptVal;
+import 'package:rrm_alpha/constants/turtle_structures.dart'
+    show createdDateTimePred, noteContentPred, rrm_alphaTerms;
+import 'package:rrm_alpha/utils/encryption.dart' show decryptVal, encryptVal;
 
 /// URI of the predicate that holds the encrypted/decrypted note body.
 
-final String _noteContentUri = '$notepodTerms$noteContentPred';
+final String _noteContentUri = '$rrm_alphaTerms$noteContentPred';
 
 /// URI of the predicate that stores the note's createdDateTime (which is
 /// also the key used to encrypt the note body).
 
-final String _createdDateTimeUri = '$notepodTerms$createdDateTimePred';
+final String _createdDateTimeUri = '$rrm_alphaTerms$createdDateTimePred';
 
-/// Register the NotePod transformers with solidpod's public-sharing hooks.
+/// Register the rrm_alpha transformers with solidpod's public-sharing hooks.
 
-void registerNotepodPublicSharingHooks() {
+void registerrrm_alphaPublicSharingHooks() {
   PublicSharingHooks.onPublicShareDecrypted = decryptInnerNoteContent;
   PublicSharingHooks.onPublicShareRevoked = encryptInnerNoteContent;
 }
 
-/// Strip the inner content encryption from a NotePod note TTL after the
+/// Strip the inner content encryption from a rrm_alpha note TTL after the
 /// outer solidpod wrapper has been removed by `decryptFileInPlace`.
 
 Future<String> decryptInnerNoteContent(
@@ -60,7 +60,7 @@ Future<String> decryptInnerNoteContent(
   final pair = _extractNoteContentTriple(content);
   if (pair == null) {
     debugPrint(
-      '[notepod-share-hook] no noteContent triple found in "$resourceUrl", '
+      '[rrm_alpha-share-hook] no noteContent triple found in "$resourceUrl", '
       'leaving content unchanged',
     );
     return content;
@@ -76,7 +76,7 @@ Future<String> decryptInnerNoteContent(
     plaintext = decryptVal(ciphertext, pair.createdDateTime);
   } on Object catch (e) {
     debugPrint(
-      '[notepod-share-hook] failed to decrypt noteContent for '
+      '[rrm_alpha-share-hook] failed to decrypt noteContent for '
       '"$resourceUrl" (assuming it is already plaintext): $e',
     );
     return content;
@@ -90,20 +90,20 @@ Future<String> decryptInnerNoteContent(
 
   if (replaced == content) {
     debugPrint(
-      '[notepod-share-hook] noteContent literal could not be located in '
+      '[rrm_alpha-share-hook] noteContent literal could not be located in '
       'the raw TTL for "$resourceUrl"; returning content unchanged',
     );
     return content;
   }
 
   debugPrint(
-    '[notepod-share-hook] decrypted noteContent (${plaintext.length} '
+    '[rrm_alpha-share-hook] decrypted noteContent (${plaintext.length} '
     'plain chars) for "$resourceUrl"',
   );
   return replaced;
 }
 
-/// Re-apply the inner content encryption to a NotePod note TTL before the
+/// Re-apply the inner content encryption to a rrm_alpha note TTL before the
 /// outer solidpod wrapper is restored by `encryptFileInPlace`.
 
 Future<String> encryptInnerNoteContent(
@@ -113,7 +113,7 @@ Future<String> encryptInnerNoteContent(
   final pair = _extractNoteContentTriple(content);
   if (pair == null) {
     debugPrint(
-      '[notepod-share-hook] no noteContent triple found in "$resourceUrl", '
+      '[rrm_alpha-share-hook] no noteContent triple found in "$resourceUrl", '
       'leaving content unchanged',
     );
     return content;
@@ -125,7 +125,7 @@ Future<String> encryptInnerNoteContent(
   // place and leave it alone.
   if (_looksLikeInnerCiphertext(pair.value)) {
     debugPrint(
-      '[notepod-share-hook] noteContent already encrypted for '
+      '[rrm_alpha-share-hook] noteContent already encrypted for '
       '"$resourceUrl", skipping re-encryption',
     );
     return content;
@@ -144,14 +144,14 @@ Future<String> encryptInnerNoteContent(
 
   if (replaced == content) {
     debugPrint(
-      '[notepod-share-hook] noteContent literal could not be located in '
+      '[rrm_alpha-share-hook] noteContent literal could not be located in '
       'the raw TTL for "$resourceUrl"; returning content unchanged',
     );
     return content;
   }
 
   debugPrint(
-    '[notepod-share-hook] re-encrypted noteContent for "$resourceUrl"',
+    '[rrm_alpha-share-hook] re-encrypted noteContent for "$resourceUrl"',
   );
   return replaced;
 }

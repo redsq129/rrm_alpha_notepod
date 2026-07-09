@@ -32,17 +32,17 @@ import 'package:intl/intl.dart';
 import 'package:solidpod/solidpod.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/constants/paths.dart';
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/models/note_content.dart';
-import 'package:notepod/notes/list_my_notes_screen.dart';
-import 'package:notepod/notes/view_note.dart';
-import 'package:notepod/services/operations.dart';
-import 'package:notepod/utils/encryption.dart';
-import 'package:notepod/widgets/err_dialogs.dart';
-import 'package:notepod/widgets/loading_animation.dart' as loading;
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/paths.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/models/note_content.dart';
+import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
+import 'package:rrm_alpha/notes/view_note.dart';
+import 'package:rrm_alpha/services/operations.dart';
+import 'package:rrm_alpha/utils/encryption.dart';
+import 'package:rrm_alpha/widgets/err_dialogs.dart';
+import 'package:rrm_alpha/widgets/loading_animation.dart' as loading;
 
 /// Helper class for note file operations.
 

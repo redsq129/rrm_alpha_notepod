@@ -1,4 +1,4 @@
-/// NotePod - The application's home page.
+/// rrm_alpha - The application's home page.
 ///
 // Time-stamp: <Friday 2026-04-24 05:26:11 +1000 Graham Williams>
 ///
@@ -29,11 +29,11 @@ import 'package:flutter/material.dart';
 import 'package:solidpod/solidpod.dart';
 import 'package:solidui/solidui.dart';
 
-import 'package:notepod/constants/app.dart';
-import 'package:notepod/notes/import_export_screen.dart';
-import 'package:notepod/notes/list_my_notes_screen.dart';
-import 'package:notepod/notes/list_notes_screen.dart';
-import 'package:notepod/notes/new_note.dart';
+import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/notes/import_export_screen.dart';
+import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
+import 'package:rrm_alpha/notes/list_notes_screen.dart';
+import 'package:rrm_alpha/notes/new_note.dart';
 
 class AppHomePage extends StatefulWidget {
   /// Initialise widget variables.
@@ -190,13 +190,13 @@ class AppHomePageState extends State<AppHomePage> {
       aboutConfig: SolidAboutConfig(
         applicationName: longTitle,
         applicationIcon: Image.asset(
-          'assets/images/notepod.png',
+          'assets/images/rrm_alpha.png',
           width: 64,
           height: 64,
         ),
         applicationLegalese: appOwner,
         text: aboutText,
-        readmeUrl: 'https://anusii.github.io/notepod',
+        readmeUrl: 'https://anusii.github.io/rrm_alpha',
       ),
       inviteConfig: inviteOthersConfig,
       enableProfile: true,

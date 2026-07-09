@@ -29,13 +29,13 @@ import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/models/note.dart';
-import 'package:notepod/models/notes_call_result.dart';
-import 'package:notepod/models/selected_note.dart';
-import 'package:notepod/services/operations.dart';
-import 'package:notepod/services/pod_service.dart';
-import 'package:notepod/utils/turtle/note_serializer.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/note.dart';
+import 'package:rrm_alpha/models/notes_call_result.dart';
+import 'package:rrm_alpha/models/selected_note.dart';
+import 'package:rrm_alpha/services/operations.dart';
+import 'package:rrm_alpha/services/pod_service.dart';
+import 'package:rrm_alpha/utils/turtle/note_serializer.dart';
 
 /// Service class for note file operations.
 

@@ -1,7 +1,7 @@
 # Getting Started
 
 This folder contains a selection of exercises to get started with the
-PODs-based apps using the NotePod app.
+PODs-based apps using the rrm_alpha app.
 
 Exercises:
 

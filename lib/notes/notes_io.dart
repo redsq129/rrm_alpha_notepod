@@ -1,4 +1,4 @@
-/// Serialisation helpers for NotePod backup (JSON) and Markdown export.
+/// Serialisation helpers for rrm_alpha backup (JSON) and Markdown export.
 ///
 /// Pure data-building / parsing logic extracted from import_export_screen.dart
 /// so the screen keeps only its UI orchestration.
@@ -15,9 +15,9 @@ import 'dart:convert';
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:notepod/constants/turtle_structures.dart';
-import 'package:notepod/models/own_note.dart';
-import 'package:notepod/utils/encryption.dart';
+import 'package:rrm_alpha/constants/turtle_structures.dart';
+import 'package:rrm_alpha/models/own_note.dart';
+import 'package:rrm_alpha/utils/encryption.dart';
 
 /// Build a pretty-printed JSON backup string for [notes].
 String notesToBackupJson(List<OwnNote> notes) {
@@ -44,7 +44,7 @@ class RestoreCounts {
   const RestoreCounts(this.saved, this.skipped);
 }
 
-/// Parse [bytes] of a NotePod JSON backup and write each note to the Pod.
+/// Parse [bytes] of a rrm_alpha JSON backup and write each note to the Pod.
 ///
 /// [tsFallback] supplies an encryption key seed when a note has no created
 /// timestamp. Returns null if the backup is empty. Throws on malformed JSON.

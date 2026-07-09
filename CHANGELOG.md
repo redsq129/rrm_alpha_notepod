@@ -1,29 +1,29 @@
-# NotePod Change Log
+# rrm_alpha Change Log
 
 Noted below are the high level changes for the app.  Each update
 includes a short user-oriented description, version number, date, and
 developer.
 
-Run the app online: [**web**](https://notepod.solidcommunity.au).
+Run the app online: [**web**](https://rrm_alpha.solidcommunity.au).
 
 The latest version of the app can be downloaded and installed from the
 [Solid Community AU](https://solidcommunity.au):
 
 + **Android**
-[apk](https://solidcommunity.au/installers/notepod.apk);
+[apk](https://solidcommunity.au/installers/rrm_alpha.apk);
 + **GNU/Linux**
-[snap](https://solidcommunity.au/installers/notepod_amd64.snap) or
-[deb](https://solidcommunity.au/installers/notepod_amd64.deb) or
-[zip](https://solidcommunity.au/installers/notepod-linux.zip);
+[snap](https://solidcommunity.au/installers/rrm_alpha_amd64.snap) or
+[deb](https://solidcommunity.au/installers/rrm_alpha_amd64.deb) or
+[zip](https://solidcommunity.au/installers/rrm_alpha-linux.zip);
 + **macOS**
-[dmg](https://solidcommunity.au/installers/notepod-macos-unsigned.dmg) or
-[zip](https://solidcommunity.au/installers/notepod-macos-unsigned.zip);
+[dmg](https://solidcommunity.au/installers/rrm_alpha-macos-unsigned.dmg) or
+[zip](https://solidcommunity.au/installers/rrm_alpha-macos-unsigned.zip);
 + **Windows**
-[zip](https://solidcommunity.au/installers/notepod-windows.zip) or
-[inno](https://solidcommunity.au/installers/notepod-windows-inno.exe).
+[zip](https://solidcommunity.au/installers/rrm_alpha-windows.zip) or
+[inno](https://solidcommunity.au/installers/rrm_alpha-windows-inno.exe).
 
 Contributions are welcome. Visit
-[github](https://github.com/anusii/notepod) to submit an issue or,
+[github](https://github.com/anusii/rrm_alpha) to submit an issue or,
 even better, fork the repository yourself, update the code, and submit
 a Pull Request. Thanks.
 
@@ -146,7 +146,7 @@ a Pull Request. Thanks.
 + Use `solidpod` package
 + Use new markdown render widget
 + Use markdown toolbar
-+ rename package to `notepod`
++ rename package to `rrm_alpha`
 
 ## 0.1 Migrate to latest solidpod package
 

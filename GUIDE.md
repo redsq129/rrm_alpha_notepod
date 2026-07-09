@@ -11,7 +11,7 @@ template app. You can do this in your favourite IDE or simply on the
 command line
 
 ```bash
-flutter create notepod
+flutter create rrm_alpha
 ```
 
 ## Beginnings of App

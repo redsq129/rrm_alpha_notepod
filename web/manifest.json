@@ -1,6 +1,6 @@
 {
-    "name": "notepod",
-    "short_name": "notepod",
+    "name": "rrm_alpha",
+    "short_name": "rrm_alpha",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",

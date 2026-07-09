@@ -25,6 +25,6 @@
 
 library;
 
-/// Base path for all notepod data in the Pod.
+/// Base path for all rrm_alpha data in the Pod.
 
-const String basePath = 'notepod/data';
+const String basePath = 'rrm_alpha/data';
