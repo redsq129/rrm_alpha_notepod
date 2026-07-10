@@ -20,7 +20,7 @@
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <https://opensource.org/license/gpl-3-0>.
 ///
-/// Authors: Jess Moore
+/// Authors: Gareth Davies and The Claudettes
 
 library;
 
@@ -120,7 +120,7 @@ class _ManageAttachmentsScreenState extends State<ManageAttachmentsScreen> {
             .map((r) => r.fileName)
             .toSet();
         _initialActive = active;
-        _selected = active;
+        _selected = {...active};
       }
       _loading = false;
     });
@@ -275,7 +275,7 @@ class _ManageAttachmentsScreenState extends State<ManageAttachmentsScreen> {
                         ButtonBackgroundColor.save,
                       ),
                     ),
-                label: const Text('SAVE'),
+                label: const Text('SAVE ATTACHMENTS'),
               ),
               ElevatedButton.icon(
                 icon: const Icon(Icons.keyboard_backspace),

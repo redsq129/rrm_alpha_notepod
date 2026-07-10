@@ -68,24 +68,63 @@ String permissionListPred = 'permissionList';
 // Attachment log details
 String attachmentLogPred = 'attachmentLog';
 
+// Prefix applied to the predicate name of each individually-flattened data
+// field triple emitted alongside the whole-blob noteContent field (see
+// [flattenJsonForTriples] and [genNoteTTLStr]), so they're namespaced apart
+// from the four fixed note predicates above.
+String dataFieldPredPrefix = 'data_';
+
+/// Recursively flattens a decoded JSON map into a single-level map keyed by
+/// underscore-joined paths (e.g. `customer.face_image.url` becomes
+/// `customer_face_image_url`), so each leaf value can be emitted as its own
+/// RDF triple. Non-map leaf values are stringified with `'$value'`, which
+/// matches their JSON text form for String/num/bool. Null values are
+/// skipped (absent optional fields).
+
+Map<String, String> flattenJsonForTriples(
+  Map<String, dynamic> json, [
+  String prefix = '',
+]) {
+  final result = <String, String>{};
+  json.forEach((key, value) {
+    final path = prefix.isEmpty ? key : '${prefix}_$key';
+    if (value == null) return;
+    if (value is Map<String, dynamic>) {
+      result.addAll(flattenJsonForTriples(value, path));
+    } else {
+      result[path] = '$value';
+    }
+  });
+  return result;
+}
+
 // Set up encrypted note file content
 String genNoteTTLStr(
   String createdTimeStr,
   String updatedTimeStr,
   String noteTitle,
-  String noteContent,
-) {
+  String noteContent, {
+  Map<String, String>? dataFields,
+}) {
+  final statements = <String>[
+    'a foaf:PersonalProfileDocument',
+    'terms:title "Note"',
+    'rrm_alphaTerms:$createdDateTimePred "$createdTimeStr"',
+    'rrm_alphaTerms:$modifiedDateTimePred "$updatedTimeStr"',
+    'rrm_alphaTerms:$noteTitlePred "$noteTitle"',
+    'rrm_alphaTerms:$noteContentPred "$noteContent"',
+    if (dataFields != null)
+      for (final entry in dataFields.entries)
+        'rrm_alphaTerms:$dataFieldPredPrefix${entry.key} "${entry.value}"',
+  ];
+  final body = statements.map((s) => '          $s').join(';\n');
+
   String noteTTLStr = '''@prefix : <#>.
       @prefix foaf: <$foaf>.
       @prefix terms: <$terms>.
       @prefix rrm_alphaTerms: <$rrm_alphaTerms>.
       $mePred
-          a foaf:PersonalProfileDocument;
-          terms:title "Note";
-          rrm_alphaTerms:$createdDateTimePred "$createdTimeStr";
-          rrm_alphaTerms:$modifiedDateTimePred "$updatedTimeStr";
-          rrm_alphaTerms:$noteTitlePred "$noteTitle";
-          rrm_alphaTerms:$noteContentPred "$noteContent".''';
+$body.''';
 
   // 20251008 jm: code to generate a corrupt note
   // for testing purposes only.

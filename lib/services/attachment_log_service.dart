@@ -19,7 +19,7 @@
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <https://opensource.org/license/gpl-3-0>.
 ///
-/// Authors: Jess Moore
+/// Authors: Gareth and Claude in perfect harmony, 2026
 
 library;
 

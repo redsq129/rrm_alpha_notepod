@@ -39,6 +39,7 @@ class NoteEditScrollView extends StatefulWidget {
     this.showContentEditor = true,
     this.showSaveButton = true,
     this.onFormChanged,
+    this.readOnlyPreview,
   })  : _textController = textController,
         _scaffoldController = scaffoldController,
         _focusTitle = focusTitle,
@@ -75,6 +76,12 @@ class NoteEditScrollView extends StatefulWidget {
   /// `showSaveButton`) can rebuild and re-evaluate whether that button
   /// should be enabled.
   final VoidCallback? onFormChanged;
+
+  /// Optional read-only widget rendered in the same space the markdown
+  /// content editor would otherwise occupy (see `showContentEditor`),
+  /// letting a caller show the note's underlying data read-only - e.g. its
+  /// JSON record - instead of an editable content field.
+  final Widget? readOnlyPreview;
 
   @override
   State<NoteEditScrollView> createState() => _NoteEditScrollViewState();
@@ -207,7 +214,9 @@ class _NoteEditScrollViewState extends State<NoteEditScrollView> {
               widget.data,
               preview: _preview,
             ),
-          ),
+          )
+        else if (widget.readOnlyPreview != null)
+          Expanded(child: widget.readOnlyPreview!),
         // ── Fixed bottom action bar ───────────────────────────────────────
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),

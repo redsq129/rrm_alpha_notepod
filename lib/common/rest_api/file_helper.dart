@@ -25,6 +25,8 @@
 
 library;
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -341,12 +343,40 @@ class NoteFileHelper with PodOperationsMixin {
         encKey: data.createdDateTime,
       );
 
+      // In addition to the encrypted whole-blob noteContent field above,
+      // emit one RDF triple per entered data field so the individual
+      // Account Application fields are held as their own
+      // subject-predicate-object statements, not just nested inside the
+      // blob. Each field value is encrypted the same way the blob is.
+      // Content that isn't a JSON object (e.g. empty, or a legacy plain
+      // note) simply gets no per-field triples - the blob still saves.
+      Map<String, String>? dataFields;
+      if (data.noteContent.trim().isNotEmpty) {
+        try {
+          final decoded = jsonDecode(data.noteContent);
+          if (decoded is Map<String, dynamic>) {
+            final flat = flattenJsonForTriples(decoded);
+            dataFields = {
+              for (final entry in flat.entries)
+                entry.key: encryptVal(
+                  plainText: entry.value,
+                  encKey: data.createdDateTime,
+                ),
+            };
+          }
+        } catch (e) {
+          debugPrint('saveNoteToPod: noteContent is not JSON, skipping '
+              'per-field triples: $e');
+        }
+      }
+
       // Create TTL body for note
       final noteTTLStr = genNoteTTLStr(
         data.createdDateTime,
         data.modifiedDateTime,
         data.noteTitle,
         encNoteText,
+        dataFields: dataFields,
       );
 
       if (isExternal && noteUrl != '' && noteOwner != '') {

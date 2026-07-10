@@ -21,7 +21,7 @@
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <https://opensource.org/license/gpl-3-0>.
 ///
-/// Authors: Graham Williams, Anushka Vidanage, Jess Moore
+/// Authors: Graham Williams, Anushka Vidanage, Jess Moore, Gareth Davies
 
 library;
 
@@ -41,6 +41,7 @@ import 'package:rrm_alpha/notes/manage_attachments_screen.dart';
 import 'package:rrm_alpha/notes/view_note.dart';
 import 'package:rrm_alpha/services/attachment_log_service.dart';
 import 'package:rrm_alpha/widgets/note_edit_scroll_view.dart';
+import 'package:rrm_alpha/widgets/note_json_preview.dart';
 import 'package:rrm_alpha/widgets/note_save_button.dart';
 
 /// A [Stateful] widget for creating a new note, or editing an existing one.
@@ -1011,6 +1012,9 @@ String? _requiredValidator(String? value) {
           showContentEditor: false,
           showSaveButton: false,
           onFormChanged: () => setState(() {}),
+          readOnlyPreview: existingNote != null
+              ? NoteJsonPreview(json: _generatedContent)
+              : null,
         ),
         Center(
           child: Row(
@@ -1020,7 +1024,7 @@ String? _requiredValidator(String? value) {
                 heroTag: 'enterApplicationData',
                 onPressed: () => _showApplicationForm(context),
                 icon: const Icon(Icons.assignment_outlined),
-                label: const Text('Enter Application Data'),
+                label: const Text('Tenancy Information Record Details'),
               ),
               const SizedBox(width: 12),
               FloatingActionButton.extended(
