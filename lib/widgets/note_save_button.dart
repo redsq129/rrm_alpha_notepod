@@ -60,6 +60,12 @@ class NoteSaveButton extends StatelessWidget {
   final bool isExternal;
   final bool enabled;
 
+  /// File names to attach/detach (see `AttachmentLogService`) once the
+  /// note write below succeeds. Populated by the note editor from the
+  /// user's in-memory selection in `ManageAttachmentsScreen`.
+  final Set<String> attachmentsToAttach;
+  final Set<String> attachmentsToDetach;
+
   const NoteSaveButton({
     super.key,
     required this.textController,
@@ -69,6 +75,8 @@ class NoteSaveButton extends StatelessWidget {
     this.isExisting = false,
     this.isExternal = false,
     this.enabled = true,
+    this.attachmentsToAttach = const {},
+    this.attachmentsToDetach = const {},
   });
 
   @override
@@ -90,6 +98,8 @@ class NoteSaveButton extends StatelessWidget {
                 prevNote: prevNote,
                 isExisting: isExisting,
                 isExternal: isExternal,
+                attachmentsToAttach: attachmentsToAttach,
+                attachmentsToDetach: attachmentsToDetach,
               );
             }
           : null,

@@ -30,10 +30,12 @@ import 'package:solidpod/solidpod.dart';
 import 'package:solidui/solidui.dart';
 
 import 'package:rrm_alpha/constants/app.dart';
+import 'package:rrm_alpha/constants/paths.dart';
 import 'package:rrm_alpha/notes/import_export_screen.dart';
 import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
 import 'package:rrm_alpha/notes/list_notes_screen.dart';
 import 'package:rrm_alpha/notes/new_edit_note.dart';
+import 'package:rrm_alpha/files/browse_files.dart';
 
 class AppHomePage extends StatefulWidget {
   /// Initialise widget variables.
@@ -162,6 +164,24 @@ class AppHomePageState extends State<AppHomePage> {
           icon: Icons.save_alt,
           child: ImportExportScreen(),
           tooltip: importExportToolTip,
+        ),
+        // App file repository - used for note attachments.
+        const SolidMenuItem(
+          title: appFilesTitle,
+          icon: Icons.folder,
+          child: SolidFile(
+            currentPath: attachmentsBasePath,
+            friendlyFolderName: 'Attachments',
+            uploadConfig: rrm_alphaUploadConfig,
+          ),
+          tooltip: appFilesToolTip,
+        ),
+        // All folders on the user's POD from the root.
+        const SolidMenuItem(
+          title: 'Temp ' + allPodFilesTitle,
+          icon: Icons.storage,
+          child: BrowseFiles(),
+          tooltip: allPodFilesToolTip,
         ),
       ],
       statusBar: SolidStatusBarConfig(

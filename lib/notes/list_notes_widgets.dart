@@ -221,7 +221,7 @@ class NoteListSortRow extends StatelessWidget {
                     ? Icons.arrow_drop_down
                     : Icons.arrow_drop_up,
               ),
-              label: const Text('Filename'),
+              label: const Text('Record name'),
               iconAlignment: IconAlignment.end,
             ),
           ],

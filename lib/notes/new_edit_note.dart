@@ -37,7 +37,9 @@ import 'package:solidui/solidui.dart';
 import 'package:rrm_alpha/constants/turtle_structures.dart';
 import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
+import 'package:rrm_alpha/notes/manage_attachments_screen.dart';
 import 'package:rrm_alpha/notes/view_note.dart';
+import 'package:rrm_alpha/services/attachment_log_service.dart';
 import 'package:rrm_alpha/widgets/note_edit_scroll_view.dart';
 import 'package:rrm_alpha/widgets/note_save_button.dart';
 
@@ -157,12 +159,34 @@ class NewNoteState extends State<NewNote> {
   /// a brand new note, or if the existing content couldn't be parsed.
   Map<String, dynamic>? _initialFormValues;
 
+  /// File names currently attached to `widget.existingNote` (from the
+  /// attachment log), or empty for a new note. Used as the diff baseline
+  /// against [_selectedAttachedFiles] when Save is pressed.
+  Set<String> _initialAttachedFiles = {};
+
+  /// The user's current in-memory attachment selection, editable via
+  /// [_manageAttachments] before the note itself is saved.
+  Set<String> _selectedAttachedFiles = {};
+
   @override
   void initState() {
     super.initState();
     _textController = TextEditingController();
     _scrollController = ScrollController();
     _scaffoldController = widget.scaffoldController;
+
+    final existingNote = widget.existingNote;
+    if (existingNote != null) {
+      AttachmentLogService()
+          .activeAttachmentsForNote(existingNote.noteFileName)
+          .then((records) {
+        if (!mounted) return;
+        setState(() {
+          _initialAttachedFiles = records.map((r) => r.fileName).toSet();
+          _selectedAttachedFiles = {..._initialAttachedFiles};
+        });
+      });
+    }
 
     final existingContent = widget.existingNote?.content?.noteContent;
     if (existingContent != null && existingContent.trim().isNotEmpty) {
@@ -404,12 +428,39 @@ String? _requiredValidator(String? value) {
             widget.initialTitle ??
             widget.existingNote?.content?.noteTitle ??
             '';
+    final attachmentsChanged = _selectedAttachedFiles.length !=
+            _initialAttachedFiles.length ||
+        _selectedAttachedFiles.any((f) => !_initialAttachedFiles.contains(f));
     if (widget.existingNote == null) {
-      return title.trim().isNotEmpty || data.trim().isNotEmpty;
+      return title.trim().isNotEmpty ||
+          data.trim().isNotEmpty ||
+          attachmentsChanged;
     }
     final initTitle = widget.existingNote?.content?.noteTitle ?? '';
     final initContent = widget.existingNote?.content?.noteContent ?? '';
-    return title != initTitle || data != initContent;
+    return title != initTitle || data != initContent || attachmentsChanged;
+  }
+
+  /// Opens the attachment picker as a modal route, so the note editor's
+  /// in-progress state is preserved underneath. Changes are only tracked
+  /// in memory here (see [ManageAttachmentsScreen]'s `noteFileName: null`
+  /// mode) - they are only written to the attachment log once the note
+  /// itself is saved (see [NoteSaveButton.attachmentsToAttach]).
+
+  Future<void> _manageAttachments(BuildContext context) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) => Scaffold(
+          appBar: AppBar(title: const Text('Attachments')),
+          body: ManageAttachmentsScreen(
+            initialAttachedFiles: _selectedAttachedFiles,
+            onSaved: (selected) {
+              setState(() => _selectedAttachedFiles = selected);
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   /// Opens the structured data-entry form for the Account Application
@@ -972,6 +1023,13 @@ String? _requiredValidator(String? value) {
                 label: const Text('Enter Application Data'),
               ),
               const SizedBox(width: 12),
+              FloatingActionButton.extended(
+                heroTag: 'manageAttachments',
+                onPressed: () => _manageAttachments(context),
+                icon: const Icon(Icons.attach_file),
+                label: Text('Attachments (${_selectedAttachedFiles.length})'),
+              ),
+              const SizedBox(width: 12),
               NoteSaveButton(
                 textController: _textController!,
                 formKey: formKey,
@@ -980,6 +1038,10 @@ String? _requiredValidator(String? value) {
                 isExisting: existingNote != null,
                 isExternal: existingNote?.isExternalRes ?? false,
                 enabled: _hasChanges,
+                attachmentsToAttach:
+                    _selectedAttachedFiles.difference(_initialAttachedFiles),
+                attachmentsToDetach:
+                    _initialAttachedFiles.difference(_selectedAttachedFiles),
               ),
             ],
           ),

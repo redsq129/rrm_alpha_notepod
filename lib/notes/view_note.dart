@@ -34,6 +34,7 @@ import 'package:rrm_alpha/constants/ui.dart';
 import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/notes/edit_note.dart';
 import 'package:rrm_alpha/notes/list_notes_screen.dart';
+import 'package:rrm_alpha/notes/manage_attachments_screen.dart';
 import 'package:rrm_alpha/notes/share_note.dart';
 import 'package:rrm_alpha/widgets/note_action_button.dart';
 import 'package:rrm_alpha/widgets/note_del_button.dart';
@@ -187,6 +188,26 @@ class _ViewNoteState extends State<ViewNote> {
                           backgroundColor: ButtonBackgroundColor.edit,
                           childPage: EditNote(
                             note: _note,
+                            scaffoldController: _scaffoldController,
+                          ),
+                          scaffoldController: _scaffoldController,
+                          isNarrow: isNarrow,
+                        ),
+                      ],
+
+                      /// Attachments button - own notes only, since the
+                      /// file repository is scoped to the user's own POD.
+                      if (!_note.isExternalRes) ...[
+                        NoteActionButton(
+                          label: 'ATTACHMENTS',
+                          icon: const Icon(Icons.attach_file),
+                          backgroundColor: ButtonBackgroundColor.def,
+                          childPage: ManageAttachmentsScreen(
+                            noteFileName: _note.noteFileName,
+                            childPage: ViewNote(
+                              note: _note,
+                              scaffoldController: _scaffoldController,
+                            ),
                             scaffoldController: _scaffoldController,
                           ),
                           scaffoldController: _scaffoldController,

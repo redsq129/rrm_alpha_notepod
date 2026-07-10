@@ -30,7 +30,8 @@ library;
 
 import 'package:flutter/material.dart';
 
-import 'package:solidui/solidui.dart' show SolidInviteOthersConfig;
+import 'package:solidui/solidui.dart'
+    show SolidFileUploadConfig, SolidInviteOthersConfig;
 
 const String applicationRepo = 'https://github.com/anusii/rrm_alpha';
 const String appChangeLog =
@@ -125,6 +126,31 @@ const String importExportTitle = 'Backup';
 const String importExportToolTip = '**Backup**\n\n'
     'Back up and restore all Tenant Information, view your Information as a PDF, '
     'or import and export.';
+
+/// Shared upload configuration for every `SolidFile` view in rrm_alpha,
+/// including the note-attachment picker. Extensions are matched
+/// case-insensitively by SolidUI.
+
+const SolidFileUploadConfig rrm_alphaUploadConfig = SolidFileUploadConfig(
+  allowedExtensions: [
+    'pdf',
+    'doc',
+    'docx',
+    'png',
+    'jpg',
+    'jpeg',
+    'txt',
+    'md',
+  ],
+);
+
+const String appFilesTitle = 'Files';
+const String appFilesToolTip = '**Files**\n\n'
+    'Tap here to browse the file repository for this app. Files here can be '
+    'attached to Tenant Information Records.';
+const String allPodFilesTitle = 'All POD Files';
+const String allPodFilesToolTip = '**All Files**\n\n'
+    'Tap here to browse all folders on your POD from the root.';
 
 /// Note list messages
 class NoteListMsg {

@@ -65,6 +65,9 @@ String permissionRecepientPred = 'permissionRecepient';
 String permissionTypePred = 'permissionType';
 String permissionListPred = 'permissionList';
 
+// Attachment log details
+String attachmentLogPred = 'attachmentLog';
+
 // Set up encrypted note file content
 String genNoteTTLStr(
   String createdTimeStr,
@@ -116,4 +119,24 @@ String genNoteTTLStr(
 
   return chosenTTL;
   // return noteTTLStr;
+}
+
+/// Set up attachment log file content.
+///
+/// [encodedLog] is the whole attachment log (see
+/// `AttachmentRecord.encodeAll`) as a single delimited string - none of
+/// its possible characters (sanitised filenames, `yyyyMMddTHHmmss`
+/// timestamps, and the `|`/`;;` delimiters) can contain a `"`, so it is
+/// safe to embed directly in a single-line TTL string literal, the same
+/// way ciphertext note content is embedded in [genNoteTTLStr].
+
+String genAttachmentLogTTLStr(String encodedLog) {
+  return '''@prefix : <#>.
+      @prefix foaf: <$foaf>.
+      @prefix terms: <$terms>.
+      @prefix rrm_alphaTerms: <$rrm_alphaTerms>.
+      $mePred
+          a foaf:PersonalProfileDocument;
+          terms:title "Attachment Log";
+          rrm_alphaTerms:$attachmentLogPred "$encodedLog".''';
 }

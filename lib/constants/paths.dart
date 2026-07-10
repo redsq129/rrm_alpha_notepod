@@ -28,3 +28,19 @@ library;
 /// Base path for all rrm_alpha data in the Pod.
 
 const String basePath = 'rrm_alpha/data';
+
+/// Path to the shared file repository used for note attachments.
+///
+/// Files here exist independently of any note - a file's presence in the
+/// repository never depends on being attached to something. See
+/// [attachmentLogFileName] for the durable attach/detach record.
+
+const String attachmentsBasePath = '$basePath/attachments';
+
+/// Filename of the attachment log resource, which records every
+/// attach/detach event (with start and end times) linking a file in
+/// [attachmentsBasePath] to a note. Lives directly under [basePath],
+/// distinct from `note-*.ttl` files so it is never matched by the
+/// `note-` filename prefix filter used to scan for notes.
+
+const String attachmentLogFileName = 'attachment-log.ttl';

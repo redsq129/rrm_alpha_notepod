@@ -29,6 +29,7 @@ import 'package:solidui/solidui.dart';
 
 import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/notes/list_notes_screen.dart';
+import 'package:rrm_alpha/notes/manage_attachments_screen.dart';
 import 'package:rrm_alpha/notes/share_note.dart';
 import 'package:rrm_alpha/utils/get_id.dart';
 import 'package:rrm_alpha/utils/misc.dart';
@@ -134,6 +135,27 @@ class NoteItemTrailingButtons extends StatelessWidget {
             onPressed: () => _showMetadata(context),
           ),
         ),
+
+        // Attachments button - own notes only, since the file repository
+        // is scoped to the user's own POD.
+        if (!_note.isExternalRes) ...[
+          MarkdownTooltip(
+            message: '**Attachments**\n\n'
+                'Tap to attach or detach files from this Tenant '
+                'Information Record.',
+            child: SimpleActionButton(
+              icon: const Icon(Icons.attach_file),
+              childPage: ManageAttachmentsScreen(
+                noteFileName: _note.noteFileName,
+                childPage: ListNotesScreen(
+                  scaffoldController: _scaffoldController,
+                ),
+                scaffoldController: _scaffoldController,
+              ),
+              scaffoldController: _scaffoldController,
+            ),
+          ),
+        ],
 
         // Share button if control in permissions
         if (accessList.contains('control')) ...[

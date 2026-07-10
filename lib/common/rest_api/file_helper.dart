@@ -39,6 +39,7 @@ import 'package:rrm_alpha/models/note.dart';
 import 'package:rrm_alpha/models/note_content.dart';
 import 'package:rrm_alpha/notes/list_my_notes_screen.dart';
 import 'package:rrm_alpha/notes/view_note.dart';
+import 'package:rrm_alpha/services/attachment_log_service.dart';
 import 'package:rrm_alpha/services/operations.dart';
 import 'package:rrm_alpha/utils/encryption.dart';
 import 'package:rrm_alpha/widgets/err_dialogs.dart';
@@ -73,6 +74,18 @@ class NoteFileHelper with PodOperationsMixin {
         rethrow;
       }
     } else {
+      // Close out any active attachments before deleting the note itself.
+      // This only ends the attachment links (recording an end time in the
+      // durable attachment log) - the attached files themselves are never
+      // touched here, since a file's existence never depends on being
+      // attached to anything.
+
+      try {
+        await AttachmentLogService().closeAllForNote(filename);
+      } catch (e) {
+        debugPrint('Error closing attachments for note $filename: $e');
+      }
+
       try {
         // Resolve the relative path to a full POD URL before calling
         // deleteFile, which expects an absolute URL.
@@ -113,6 +126,8 @@ class NoteFileHelper with PodOperationsMixin {
     Note? prevNote,
     bool isExternal = false,
     bool isExisting = false,
+    Set<String> attachmentsToAttach = const {},
+    Set<String> attachmentsToDetach = const {},
   }) async {
     if (formKey.currentState?.saveAndValidate() ?? false) {
       // Compares to prevNoteData if previous note data provided
@@ -137,9 +152,13 @@ class NoteFileHelper with PodOperationsMixin {
         // Retrieve existing note title and content for comparison
         prevNoteTitle = prevNote!.content!.noteTitle;
         prevNoteContent = prevNote.content!.noteContent;
-        // Compare updated title and content to existing
-        // title and content
-        if (noteTitle == prevNoteTitle && noteText == prevNoteContent) {
+        // Compare updated title and content to existing title and
+        // content - also treat pending attachment changes as a change
+        // worth saving, since title/content may be untouched.
+        if (noteTitle == prevNoteTitle &&
+            noteText == prevNoteContent &&
+            attachmentsToAttach.isEmpty &&
+            attachmentsToDetach.isEmpty) {
           showErrDialog(context, ErrMsg.noChanges);
         } else {
           // Loading animation
@@ -188,6 +207,8 @@ class NoteFileHelper with PodOperationsMixin {
                 ),
                 scaffoldController: scaffoldController,
                 isExternal: isExternal,
+                attachmentsToAttach: attachmentsToAttach,
+                attachmentsToDetach: attachmentsToDetach,
               );
             } on Exception catch (e) {
               debugPrint('Exception (saving existing external note):\n $e');
@@ -210,6 +231,8 @@ class NoteFileHelper with PodOperationsMixin {
                   scaffoldController: scaffoldController,
                 ),
                 scaffoldController: scaffoldController,
+                attachmentsToAttach: attachmentsToAttach,
+                attachmentsToDetach: attachmentsToDetach,
               );
             } on Exception catch (e) {
               debugPrint('Exception (saving existing my note):\n $e');
@@ -249,6 +272,8 @@ class NoteFileHelper with PodOperationsMixin {
                 scaffoldController: scaffoldController,
               ),
               scaffoldController: scaffoldController,
+              attachmentsToAttach: attachmentsToAttach,
+              attachmentsToDetach: attachmentsToDetach,
             );
           } on Exception catch (e) {
             debugPrint('Exception (saving new my note):\n $e');
@@ -298,6 +323,8 @@ class NoteFileHelper with PodOperationsMixin {
     String noteOwner = '',
     bool overwrite = false,
     bool isExternal = false,
+    Set<String> attachmentsToAttach = const {},
+    Set<String> attachmentsToDetach = const {},
   }) async {
     // Tracks whether the `Saving the note!` animation is still on screen
     // so we can guarantee it is dismissed exactly once on any code path.
@@ -339,6 +366,27 @@ class NoteFileHelper with PodOperationsMixin {
           noteTTLStr,
           overwrite: overwrite,
         );
+      }
+
+      // Apply any pending attachment changes now that the note write has
+      // succeeded and (for a new note) its filename is known. Attachments
+      // are only meaningful for the user's own notes - the file
+      // repository is scoped to the user's own POD.
+      if (!isExternal &&
+          (attachmentsToAttach.isNotEmpty || attachmentsToDetach.isNotEmpty)) {
+        final logService = AttachmentLogService();
+        for (final fileName in attachmentsToAttach) {
+          await logService.recordAttach(
+            noteFileName: noteFileName,
+            fileName: fileName,
+          );
+        }
+        for (final fileName in attachmentsToDetach) {
+          await logService.recordDetach(
+            noteFileName: noteFileName,
+            fileName: fileName,
+          );
+        }
       }
 
       if (!context.mounted) return;
