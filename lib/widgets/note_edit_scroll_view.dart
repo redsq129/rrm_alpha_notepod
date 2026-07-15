@@ -171,7 +171,7 @@ class _NoteEditScrollViewState extends State<NoteEditScrollView> {
                         autofocus: true,
                         focusNode: widget._focusTitle,
                         decoration: const InputDecoration(
-                          labelText: 'Note Title',
+                          labelText: 'Tenant Information Record Title',
                           labelStyle: TextStyle(
                             letterSpacing: 1.5,
                             fontSize: 13.0,

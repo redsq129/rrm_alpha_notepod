@@ -178,7 +178,7 @@ class AppHomePageState extends State<AppHomePage> {
         ),
         // All folders on the user's POD from the root.
         const SolidMenuItem(
-          title: 'Temp $allPodFilesTitle',
+          title: 'Temporary for Alpha $allPodFilesTitle',
           icon: Icons.storage,
           child: BrowseFiles(),
           tooltip: allPodFilesToolTip,

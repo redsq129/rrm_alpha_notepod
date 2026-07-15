@@ -111,7 +111,7 @@ class NotLoggedInCard extends StatelessWidget {
                   //   context,
                   //   message:
                   //       'Please log in to your POD to view and manage your '
-                  //       'notes.',
+                  //       'Tenant Information Records.',
                   // ),
                 ),
               ],

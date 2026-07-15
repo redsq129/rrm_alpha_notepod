@@ -79,7 +79,7 @@ class NoteListCard extends StatelessWidget {
                   width: NoteIconSize.width,
                   child: Center(
                     child: MarkdownTooltip(
-                      message: '**Select note**\n\nTap to select this note.',
+                      message: '**Select record **\n\nTap to select this record.',
                       child: note.isSelected
                           ? Ink(
                               decoration: buttonShapeList,
@@ -169,12 +169,12 @@ class NoteListSortRow extends StatelessWidget {
         Flexible(
           child: selectedCount > 0
               ? Text(
-                  'Selected: $selectedCount notes',
+                  'Selected: $selectedCount Records',
                   style: TextStyle(color: primary),
                   overflow: TextOverflow.ellipsis,
                 )
               : Text(
-                  'Found $foundCount note${foundCount == 1 ? '' : 's'}',
+                  'Found $foundCount record${foundCount == 1 ? '' : 's'}',
                   style: TextStyle(color: primary),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -200,7 +200,7 @@ class NoteListSortRow extends StatelessWidget {
                     ? Icons.arrow_drop_down
                     : Icons.arrow_drop_up,
               ),
-              label: const Text('Title'),
+              label: const Text('Tenant Record'),
               iconAlignment: IconAlignment.end,
             ),
             if (!isVeryNarrow)

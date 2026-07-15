@@ -469,8 +469,8 @@ class _ListNotesState extends State<ListNotes> {
         );
       },
       decoration: const InputDecoration(
-        labelText: 'Search notes',
-        hintText: 'Type to search · Enter to create new note',
+        labelText: 'Search Records',
+        hintText: 'Type to search · Enter to create new record',
         prefixIcon: Icon(Icons.search),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
